@@ -1,3 +1,4 @@
+using Cadeteria;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,6 +14,7 @@ namespace WebAppCadeteria
 {
     public class Startup
     {
+        static List<Cadete> listaCadetes = new List<Cadete>();
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -24,6 +26,7 @@ namespace WebAppCadeteria
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddSingleton(listaCadetes);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

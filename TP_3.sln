@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31613.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTest", "Cadeteria\ConsoleTest.csproj", "{763208E4-55E3-4A17-A10B-90E9ABBCCDBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppCadeteria", "WebAppCadeteria\WebAppCadeteria.csproj", "{D89CE2E8-BA94-4989-AB7E-4C68F7DE4877}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppCadeteria", "WebAppCadeteria\WebAppCadeteria.csproj", "{D89CE2E8-BA94-4989-AB7E-4C68F7DE4877}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

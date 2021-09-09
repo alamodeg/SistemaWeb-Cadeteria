@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<form asp-action="AltaCadete" method="post">
+    <label for="nombre">Nombre</label>
+    <input type="text" name="nombre" placeholder="Ragnar" required/>
+    <label for="apellido">Apellido</label>
+    <input type="text" name="apellido" placeholder="Lodbrok" required/>
+    <label for="tel">Tel/Celular</label>
+    <input type="text" name="tel" placeholder="3815625752" maxlength="12" required/>
+    <br/>
+    <input type="submit" class="btn btn-primary" value="Enviar" />
+</form>

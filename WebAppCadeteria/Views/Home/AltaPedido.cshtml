@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model List<Cadeteria.Cadete>
+
+<form asp-action="CargarPedido" method="post">
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Cliente
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            @foreach (var item in Model)
+            {
+            <a class="dropdown-item" href="#">@item.Nombre</a>
+            }
+        </div>
+    </div>
+    <br />
+    <label for="obs">Observacion</label>
+    <input type="text" name="obs" placeholder="¡CUIDADO! Perro asesino!" required/>
+    <br><br>
+    <input type="submit" class="btn btn-primary" value="Enviar" />
+</form>

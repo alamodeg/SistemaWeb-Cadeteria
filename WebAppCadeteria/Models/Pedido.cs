@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Cadeteria
 {
-    public enum Estado { NOEntregado, Entregado = 1 };
-    class Pedido
+    public enum Estado { NOEntregado = 0, Entregado = 1 };
+    public class Pedido
     {
         Guid id;
         string observacion;
@@ -26,6 +26,5 @@ namespace Cadeteria
         public string Observacion { get => observacion; set => observacion = value; }
         public Estado Estado { get => estado; set => estado = value; }
         internal Cliente Cliente { get => cliente; set => cliente = value; }
-
     }
 }
