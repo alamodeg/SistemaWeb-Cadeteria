@@ -2,7 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-@model List<Cadeteria.Cadete>
+@model List<Cadeteria.Model.Cadete>
 
 <form asp-action="CargarPedido" method="post">
     <div class="dropdown">
@@ -10,10 +10,7 @@
             Cliente
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            @foreach (var item in Model)
-            {
-            <a class="dropdown-item" href="#">@item.Nombre</a>
-            }
+
         </div>
     </div>
     <br />

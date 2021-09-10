@@ -1,17 +1,17 @@
-﻿using Cadeteria;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cadeteria.Model;
 
 namespace WebAppCadeteria.Controllers
 {
     public class CadeteController : Controller
     {
         private readonly ILogger<CadeteController> _logger;
-        readonly List<Cadete> _listaCadete = new List<Cadete>();
+        readonly List<Cadete> _listaCadete;
 
         public CadeteController(ILogger<CadeteController> logger, List<Cadete> listaCadete)
         {

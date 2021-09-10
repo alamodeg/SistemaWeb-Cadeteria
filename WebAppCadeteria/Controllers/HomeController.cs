@@ -1,6 +1,6 @@
-﻿using Cadeteria;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Cadeteria.Model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,7 +13,7 @@ namespace WebAppCadeteria.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        readonly List<Cadete> _listaCadete = new List<Cadete>();
+        readonly List<Cadete> _listaCadete;
 
         public HomeController(ILogger<HomeController> logger,List<Cadete> listaCadete)
         {
