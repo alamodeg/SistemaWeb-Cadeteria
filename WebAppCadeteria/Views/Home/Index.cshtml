@@ -4,22 +4,23 @@
 
 @model List<Cadeteria.Model.Cadete>
 
-<h1>Listado Cadetes</h1>
+    <a asp-action="AltaCadete" asp-controller="Cadete" type="button" class="btn btn-warning">Agregar</a>
+    <h1 class="text-center">Listado Cadetes</h1>
 
-<table class="table table-dark">
-    <tr>
-        <th scope="col">Codigo ID</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Apellido</th>
-        <th scope="col">Telefono</th>
-    </tr>
-    @foreach (var item in Model)
-        {
+    <table class="table table-dark">
         <tr>
-            <td>@item.Id</td>
-            <td>@item.Nombre</td>
-            <td>@item.Apellido</td>
-            <td>@item.Telefono</td>
+            <th scope="col">Codigo ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Telefono</th>
         </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Nombre</td>
+                <td>@item.Apellido</td>
+                <td>@item.Telefono</td>
+            </tr>
         }
-</table>
+    </table>
