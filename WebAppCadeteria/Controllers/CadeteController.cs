@@ -25,6 +25,7 @@ namespace WebAppCadeteria.Controllers
             if (nombre is null && apellido is null && tel is null) return View();
 
             _listaCadete.Add(new Cadete(nombre, apellido, tel));
+
             return View();
         }
     }
