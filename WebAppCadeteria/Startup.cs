@@ -14,6 +14,7 @@ namespace WebAppCadeteria
 {
     public class Startup
     {
+        static List<Pedido> listaPedidos = new List<Pedido>();
         static List<Cadete> listaCadetes = new List<Cadete>();
         public Startup(IConfiguration configuration)
         {
@@ -27,6 +28,7 @@ namespace WebAppCadeteria
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddSingleton(listaCadetes);
+            services.AddSingleton(listaPedidos);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -12,13 +12,20 @@ namespace WebAppCadeteria.Controllers
     {
         private readonly ILogger<PedidoController> _logger;
         private readonly List<Cadete> _listaCadete;
+        private readonly List<Pedido> _listaPedido;
 
-        public PedidoController(ILogger<PedidoController> logger, List<Cadete> listaCadete)
+        public PedidoController(ILogger<PedidoController> logger, List<Cadete> listaCadete, List<Pedido> listaPedido)
         {
             _logger = logger;
             _listaCadete = listaCadete;
+            _listaPedido = listaPedido;
         }
-        public IActionResult AltaPedido(string apellido, string nombre, string tel, string dir, string obs)
+
+        public IActionResult MostrarPedidos()
+        {
+            return View(_listaPedido);
+        }
+        public IActionResult CargarPedido(string apellido, string nombre, string tel, string dir, string obs)
         {
             if (apellido is null && dir is null && obs is null && nombre is null && tel is null) return View(_listaCadete);
 
@@ -26,7 +33,8 @@ namespace WebAppCadeteria.Controllers
             foreach (var item in _listaCadete)
             {
                 {
-                    item.CargarPedido(nuevoPed);
+                    item.CargarPedido(nuevoPed); //agrego el pedido al cadete
+                    _listaPedido.Add(nuevoPed); //lista de pedidos externa al cadete
                 }
             }
             return View(_listaCadete);

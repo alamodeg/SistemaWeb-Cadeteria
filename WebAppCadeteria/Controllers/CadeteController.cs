@@ -19,7 +19,7 @@ namespace WebAppCadeteria.Controllers
             _listaCadete = listaCadete;
         }
 
-        public IActionResult AltaCadete(string nombre, string apellido, string tel)
+        public IActionResult CargarCadete(string nombre, string apellido, string tel)
         {
             //si no ingresa nada
             if (nombre is null && apellido is null && tel is null) return View();

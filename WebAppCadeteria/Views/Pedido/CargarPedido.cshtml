@@ -4,14 +4,16 @@
 
 @model List<Cadeteria.Model.Cadete>
 
-<form asp-action="AltaPedido" method="post">
+<form asp-action="CargarPedido" method="post">
     <div class="input-group mb-3">
-        
+        <div class="input-group-prepend">
             <label class="input-group-text" for="select">Cadete</label>
+        </div>
         <select class="custom-select" id="select" aria-label="Default select example">
             @foreach (var item in Model)
             {
                 <option value="@item.Id">@item.Nombre</option>
+                <option value="2">NO ASIGNADO</option>
             }
         </select>
     </div>

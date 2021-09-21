@@ -26,12 +26,6 @@ namespace WebAppCadeteria.Controllers
             return View(_listaCadete);
         }
 
-        public IActionResult AltaPedido()
-        {
-            return View();
-        }
-
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
