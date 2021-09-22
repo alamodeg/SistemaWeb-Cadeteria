@@ -11,21 +11,25 @@ namespace WebAppCadeteria.Controllers
     public class CadeteController : Controller
     {
         private readonly ILogger<CadeteController> _logger;
-        readonly List<Cadete> _listaCadete;
+        private readonly DBTemporal _DB;
 
-        public CadeteController(ILogger<CadeteController> logger, List<Cadete> listaCadete)
+        public CadeteController(ILogger<CadeteController> logger, DBTemporal DB)
         {
             _logger = logger;
-            _listaCadete = listaCadete;
+            _DB = DB;
+        }
+
+        public IActionResult MostrarCadetes()
+        {
+            return View(_DB.Cadeteria.listaCadetes);
         }
 
         public IActionResult CargarCadete(string nombre, string apellido, string tel)
         {
-            //si no ingresa nada
             if (nombre is null && apellido is null && tel is null) return View();
 
-            _listaCadete.Add(new Cadete(nombre, apellido, tel));
-
+             _DB.Cadeteria.listaCadetes.Add(new Cadete(nombre, apellido, tel));
+            _DB.SaveCadete(_DB.Cadeteria.listaCadetes);
             return View();
         }
     }

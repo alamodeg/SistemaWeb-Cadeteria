@@ -13,19 +13,21 @@ namespace WebAppCadeteria.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        readonly List<Cadete> _listaCadete;
 
-        public HomeController(ILogger<HomeController> logger,List<Cadete> listaCadete)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _listaCadete = listaCadete;
         }
 
         public IActionResult Index()
         {
-            return View(_listaCadete);
+            return View();
         }
 
+        public IActionResult Privacy()
+        {
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

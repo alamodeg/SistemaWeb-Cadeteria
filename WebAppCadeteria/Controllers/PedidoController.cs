@@ -11,33 +11,32 @@ namespace WebAppCadeteria.Controllers
     public class PedidoController : Controller
     {
         private readonly ILogger<PedidoController> _logger;
-        private readonly List<Cadete> _listaCadete;
-        private readonly List<Pedido> _listaPedido;
+        private readonly DBTemporal _DB;
 
-        public PedidoController(ILogger<PedidoController> logger, List<Cadete> listaCadete, List<Pedido> listaPedido)
+        public PedidoController(ILogger<PedidoController> logger,DBTemporal DB)
         {
             _logger = logger;
-            _listaCadete = listaCadete;
-            _listaPedido = listaPedido;
+            _DB = DB;
         }
 
         public IActionResult MostrarPedidos()
         {
-            return View(_listaPedido);
+            return View(_DB.Cadeteria.listaPedidos);
         }
-        public IActionResult CargarPedido(string apellido, string nombre, string tel, string dir, string obs)
+        public IActionResult CargarPedido(string apellido, string nombre, string tel, string dir, string obs, Guid id)
         {
-            if (apellido is null && dir is null && obs is null && nombre is null && tel is null) return View(_listaCadete);
+            if (apellido is null && dir is null && obs is null && nombre is null && tel is null) return View(_DB.Cadeteria.listaCadetes);
 
             Pedido nuevoPed = new Pedido(obs,apellido,dir,tel);
-            foreach (var item in _listaCadete)
+            foreach (var item in _DB.Cadeteria.listaCadetes)
             {
+                if (item.Id == id)
                 {
-                    item.CargarPedido(nuevoPed); //agrego el pedido al cadete
-                    _listaPedido.Add(nuevoPed); //lista de pedidos externa al cadete
+                    item.CargarPedido(nuevoPed); //cargo al cadete el nuevo pedido
                 }
             }
-            return View(_listaCadete);
+            _DB.Cadeteria.listaPedidos.Add(nuevoPed); //cargo a la cadeteria el nuevo pedido en su lista
+            return View(_DB.Cadeteria.listaCadetes);
         }
     }
 }
