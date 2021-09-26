@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model Cadeteria.Model.Cadete
+
+<h1 class="text-center">Modificar Cadete</h1>
+
+<form asp-action="EditCadete" method="post">
+    <div class="form-group">
+        <label for="id"></label>
+        <input type="hidden" name="id" value="@Model.Id" required />
+    </div>
+    <div class="form-group">
+        <label for="nombre"></label>
+        <input type="text" name="nombre" value="@Model.Nombre" required />
+    </div>
+    <div class="form-group">
+        <label for="apellido"></label>
+        <input type="text" name="apellido" value="@Model.Apellido" required />
+    </div>
+    <div class="form-group">
+        <label for="tel"></label>
+        <input type="text" name="tel" value="@Model.Telefono" maxlength="12" required />
+    </div>
+    <br /><br />
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>

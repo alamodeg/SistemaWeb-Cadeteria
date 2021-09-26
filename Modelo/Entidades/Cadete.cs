@@ -23,6 +23,16 @@ namespace Cadeteria.Model
             listadoPedidos = new List<Pedido>();
         }
 
+        public Cadete(Guid id, string nombre, string apellido, string telefono)
+        {
+            this.Id = id;
+            this.Nombre = nombre;
+            this.Apellido = apellido;
+            this.Telefono = telefono;
+            listadoPedidos = new List<Pedido>();
+        }
+
+
         public Guid Id { get => id; set => id = value; }
         public string Nombre { get => nombre; set => nombre = value; }
         public string Apellido { get => apellido; set => apellido = value; }

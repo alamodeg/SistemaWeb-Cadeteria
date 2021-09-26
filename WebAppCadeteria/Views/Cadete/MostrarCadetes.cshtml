@@ -2,7 +2,7 @@
 @model List<Cadeteria.Model.Cadete>
 
 <a asp-action="CargarCadete" asp-controller="Cadete" type="button" class="btn btn-warning">Agregar</a>
-<h1 class="text-center">Lista de Cadetes</h1>
+<h1 class="text-center">Lista de Cadetes</h1><br />
 
 <table class="table table-dark">
     <tr>
@@ -12,7 +12,7 @@
         <th scope="col">Telefono</th>
         <th scope="col">N° Pedidos</th>
     </tr>
-    @foreach (var item in Model)
+   @foreach (var item in Model)
     {
 <tr>
     <td>@item.Id</td>
@@ -20,6 +20,18 @@
     <td>@item.Apellido</td>
     <td>@item.Telefono</td>
     <td>@item.ListadoPedidos.Count()</td>
+    <td>
+        <form asp-action="SelectCadete" asp-controller="Cadete" method="post">
+            <input type="hidden" name="id" value="@item.Id">
+            <button type="submit" class="btn btn-light">Edit</button>
+        </form>
+    </td>
+    <td>
+        <form asp-action="EliminarCadete" asp-controller="Cadete" method="post">
+            <input type="hidden" name="id" value="@item.Id">
+            <button type="submit" class="btn btn-danger">X</button>
+        </form>
+    </td>
 </tr>
     }
 </table>

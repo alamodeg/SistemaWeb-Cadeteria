@@ -2,13 +2,21 @@
     ViewData["Title"] = "Home Page";
 }
 
-<form asp-action="CargarCadete" method="post">
-    <label for="nombre">Nombre</label>
-    <input type="text" name="nombre" placeholder="Ragnar" required/>
-    <label for="apellido">Apellido</label>
-    <input type="text" name="apellido" placeholder="Lodbrok" required/>
-    <label for="tel">Tel/Celular</label>
-    <input type="text" name="tel" placeholder="3815625752" maxlength="12" required/>
-    <br/><br/>
-    <input type="submit" class="btn btn-primary" value="Enviar" />
+<h1 class="text-center">Alta de Cadetes</h1><br><br>
+
+<form asp-action="CargarCadete" method="post" class="">
+    <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input type="text" name="nombre" placeholder="Ragnar" required />
+    </div>
+    <div class="form-group">
+        <label for="apellido">Apellido</label>
+        <input type="text" name="apellido" placeholder="Lodbrok" required />
+    </div>
+    <div class="form-group">
+        <label for="tel">Telefono</label>
+        <input type="text" name="tel" placeholder="3815625752" maxlength="12" required />
+    </div>
+    <br><br>
+    <button type="submit" class="btn btn-primary">Enviar</button>
 </form>

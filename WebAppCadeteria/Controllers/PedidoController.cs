@@ -23,6 +23,7 @@ namespace WebAppCadeteria.Controllers
         {
             return View(_DB.Cadeteria.listaPedidos);
         }
+
         public IActionResult CargarPedido(string apellido, string nombre, string tel, string dir, string obs, Guid id)
         {
             if (apellido is null && dir is null && obs is null && nombre is null && tel is null) return View(_DB.Cadeteria.listaCadetes);
@@ -32,10 +33,10 @@ namespace WebAppCadeteria.Controllers
             {
                 if (item.Id == id)
                 {
-                    item.CargarPedido(nuevoPed); //cargo al cadete el nuevo pedido
+                    item.CargarPedido(nuevoPed);
                 }
             }
-            _DB.Cadeteria.listaPedidos.Add(nuevoPed); //cargo a la cadeteria el nuevo pedido en su lista
+            _DB.Cadeteria.listaPedidos.Add(nuevoPed); //cargo a DB el nuevo pedido que se muestra
             return View(_DB.Cadeteria.listaCadetes);
         }
     }
