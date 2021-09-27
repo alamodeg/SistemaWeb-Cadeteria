@@ -2,9 +2,9 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h1 class="text-center">Alta de Cadetes</h1><br><br>
+<h1>Alta de Cadetes</h1><br />
 
-<form asp-action="CargarCadete" method="post" class="">
+<form asp-action="CargarCadete" method="post">
     <div class="form-group">
         <label for="nombre">Nombre</label>
         <input type="text" name="nombre" placeholder="Ragnar" required />
@@ -17,6 +17,6 @@
         <label for="tel">Telefono</label>
         <input type="text" name="tel" placeholder="3815625752" maxlength="12" required />
     </div>
-    <br><br>
+    <br />
     <button type="submit" class="btn btn-primary">Enviar</button>
 </form>

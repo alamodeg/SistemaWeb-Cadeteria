@@ -14,8 +14,6 @@ namespace WebAppCadeteria
 {
     public class Startup
     {
-        //static List<Pedido> listaPedidos = new List<Pedido>();
-        static List<Cadete> listaCadetes = new List<Cadete>();
         static DBTemporal DB = new DBTemporal();
         
         public Startup(IConfiguration configuration)

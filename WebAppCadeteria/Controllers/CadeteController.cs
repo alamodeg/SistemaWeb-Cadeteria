@@ -41,7 +41,7 @@ namespace WebAppCadeteria.Controllers
         public IActionResult EliminarCadete(Guid id)
         {
              _DB.Cadeteria.listaCadetes.RemoveAll(x => x.Id == id);
-            //_DB.SaveCadete(_DB.Cadeteria.listaCadetes);
+            _DB.SaveCadete(_DB.Cadeteria.listaCadetes);
             return View("MostrarCadetes", _DB.Cadeteria.listaCadetes);
         }
 
@@ -49,8 +49,6 @@ namespace WebAppCadeteria.Controllers
         {
             var cadeteToEdit = _DB.Cadeteria.listaCadetes.Find(x => x.Id == id);
             return View(cadeteToEdit);
-
-            //_DB.SaveCadete(_DB.Cadeteria.listaCadetes);
         }
 
         public IActionResult EditCadete(Guid id, string nombre, string apellido, string tel)
