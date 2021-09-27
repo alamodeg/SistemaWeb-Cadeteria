@@ -4,6 +4,5 @@
 
 
 ## Falta
-- Acomodar las vistas
-- Modificar y eliminar cadetes/pedidos
+- Eliminar cadetes/pedidos
 - Persistencia con Pedidos en Json
