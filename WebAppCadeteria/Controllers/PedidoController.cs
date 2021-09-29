@@ -29,13 +29,14 @@ namespace WebAppCadeteria.Controllers
             if (apellido is null && dir is null && obs is null && nombre is null && tel is null) return View(_DB.Cadeteria.listaCadetes);
 
             Pedido nuevoPed = new Pedido(obs,apellido,dir,tel);
-            foreach (var item in _DB.Cadeteria.listaCadetes)
-            {
-                if (item.Id == id)
-                {
-                    item.CargarPedido(nuevoPed);
-                }
-            }
+            _DB.Cadeteria.listaCadetes.Find(item => item.Id == id).CargarPedido(nuevoPed);
+            //foreach (var item in _DB.Cadeteria.listaCadetes)
+            //{
+            //    if (item.Id == id)
+            //    {
+            //        item.CargarPedido(nuevoPed);
+            //    }
+            //}
             _DB.Cadeteria.listaPedidos.Add(nuevoPed); //cargo a DB el nuevo pedido que se muestra
             return View(_DB.Cadeteria.listaCadetes);
         }

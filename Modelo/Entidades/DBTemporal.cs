@@ -28,13 +28,11 @@ namespace Cadeteria.Model
             {
                 string CadeteJson = JsonSerializer.Serialize(cadetes);
                 string path = @"Cadetes.json";
+                using (FileStream miArchivo = new FileStream(path, FileMode.OpenOrCreate))
                 {
-                    using (FileStream miArchivo = new FileStream(path, FileMode.OpenOrCreate))
+                    using (StreamWriter writer = new StreamWriter(miArchivo))
                     {
-                        using (StreamWriter writer = new StreamWriter(miArchivo))
-                        {
-                            writer.Write(CadeteJson);
-                        }
+                        writer.Write(CadeteJson);
                     }
                 }
             }
@@ -52,14 +50,12 @@ namespace Cadeteria.Model
                 string path = @"Cadetes.json";
                 if (File.Exists(path))
                 {
+                    using (FileStream miArchivo = new FileStream(path, FileMode.Open))
                     {
-                        using (FileStream miArchivo = new FileStream(path, FileMode.Open))
+                        using (StreamReader reader = new StreamReader(miArchivo))
                         {
-                            using (StreamReader reader = new StreamReader(miArchivo))
-                            {
-                                string StrCadetes = reader.ReadToEnd();
-                                CadeteJson = JsonSerializer.Deserialize<List<Cadete>>(StrCadetes);
-                            }
+                            string StrCadetes = reader.ReadToEnd();
+                            CadeteJson = JsonSerializer.Deserialize<List<Cadete>>(StrCadetes);
                         }
                     }
                 }
@@ -69,6 +65,37 @@ namespace Cadeteria.Model
                 string error = ex.ToString();
             }
             return CadeteJson;
+        }
+
+
+        public void SaveDeleteCadetes(Guid id)
+        {
+            List<Cadete> CadeteJson = null;
+            try
+            {
+                string path = @"Cadetes.json";
+                if (File.Exists(path))
+                {
+                    using (FileStream miArchivo = new FileStream(path, FileMode.OpenOrCreate))
+                    {
+                        using (StreamReader reader = new StreamReader(miArchivo))
+                        {
+                            string StrCadetes = reader.ReadToEnd();
+                            CadeteJson = JsonSerializer.Deserialize<List<Cadete>>(StrCadetes);
+                            CadeteJson.RemoveAll(x => x.Id == id); //elimino el cadete
+
+                            using (StreamWriter writer = new StreamWriter(miArchivo))
+                            {
+                                writer.Write(CadeteJson); //piso el archivo anterior
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
         }
     }
 }

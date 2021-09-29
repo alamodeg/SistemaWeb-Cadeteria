@@ -23,11 +23,11 @@
     <td>
         <form asp-action="SelectCadete" asp-controller="Cadete" method="post">
             <input type="hidden" name="id" value="@item.Id">
-            <button type="submit" class="btn btn-light">Editar</button>
+            <button type="submit" class="btn btn-success">Editar</button>
         </form>
     </td>
     <td>
-        <form asp-action="EliminarCadete" asp-controller="Cadete" method="post">
+        <form asp-action="DeleteCadete" asp-controller="Cadete" method="post">
             <input type="hidden" name="id" value="@item.Id">
             <button type="submit" class="btn btn-danger">X</button>
         </form>

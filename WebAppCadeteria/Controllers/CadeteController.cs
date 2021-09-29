@@ -38,10 +38,10 @@ namespace WebAppCadeteria.Controllers
             }
         }
 
-        public IActionResult EliminarCadete(Guid id)
+        public IActionResult DeleteCadete(Guid id)
         {
-             _DB.Cadeteria.listaCadetes.RemoveAll(x => x.Id == id);
-            _DB.SaveCadete(_DB.Cadeteria.listaCadetes);
+            _DB.Cadeteria.listaCadetes.RemoveAll(x => x.Id == id); //desaparece de la vista
+            _DB.SaveDeleteCadetes(id);
             return View("MostrarCadetes", _DB.Cadeteria.listaCadetes);
         }
 
