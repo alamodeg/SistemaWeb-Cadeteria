@@ -13,6 +13,9 @@ namespace Cadeteria.Model
     {
         public Cadeteria Cadeteria { get; set; }
 
+        string path1 = @"Cadetes.json";
+        string path2= @"Pedidos.json";
+
         public DBTemporal()
         {
             Cadeteria = new Cadeteria();
@@ -22,17 +25,21 @@ namespace Cadeteria.Model
             }
         }
 
-        public void SaveCadete(List<Cadete> cadetes)
+        /// <summary>
+        /// Guarda la instancia global de cadetes
+        /// </summary>
+        public void SaveAllCadetes()
         {
             try
             {
-                string CadeteJson = JsonSerializer.Serialize(cadetes);
-                string path = @"Cadetes.json";
-                using (FileStream miArchivo = new FileStream(path, FileMode.OpenOrCreate))
+                string CadeteJson = JsonSerializer.Serialize(Cadeteria.listaCadetes);
+                using (FileStream miArchivo = new FileStream(path1, FileMode.Create))
                 {
                     using (StreamWriter writer = new StreamWriter(miArchivo))
                     {
                         writer.Write(CadeteJson);
+                        writer.Close();
+                        writer.Dispose();
                     }
                 }
             }
@@ -40,17 +47,16 @@ namespace Cadeteria.Model
             {
                 string error = ex.ToString();
             }
-
         }
+
         public List<Cadete> ReadCadetes()
         {
             List<Cadete> CadeteJson = null;
             try
             {
-                string path = @"Cadetes.json";
-                if (File.Exists(path))
+                if (File.Exists(path1))
                 {
-                    using (FileStream miArchivo = new FileStream(path, FileMode.Open))
+                    using (FileStream miArchivo = new FileStream(path1, FileMode.Open))
                     {
                         using (StreamReader reader = new StreamReader(miArchivo))
                         {
@@ -65,37 +71,6 @@ namespace Cadeteria.Model
                 string error = ex.ToString();
             }
             return CadeteJson;
-        }
-
-
-        public void SaveDeleteCadetes(Guid id)
-        {
-            List<Cadete> CadeteJson = null;
-            try
-            {
-                string path = @"Cadetes.json";
-                if (File.Exists(path))
-                {
-                    using (FileStream miArchivo = new FileStream(path, FileMode.OpenOrCreate))
-                    {
-                        using (StreamReader reader = new StreamReader(miArchivo))
-                        {
-                            string StrCadetes = reader.ReadToEnd();
-                            CadeteJson = JsonSerializer.Deserialize<List<Cadete>>(StrCadetes);
-                            CadeteJson.RemoveAll(x => x.Id == id); //elimino el cadete
-
-                            using (StreamWriter writer = new StreamWriter(miArchivo))
-                            {
-                                writer.Write(CadeteJson); //piso el archivo anterior
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                string error = ex.ToString();
-            }
         }
     }
 }

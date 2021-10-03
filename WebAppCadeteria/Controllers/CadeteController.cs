@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Cadeteria.Model;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Cadeteria.Model;
 
 namespace WebAppCadeteria.Controllers
 {
@@ -21,10 +18,10 @@ namespace WebAppCadeteria.Controllers
 
         public IActionResult MostrarCadetes()
         {
-            return View(_DB.Cadeteria.listaCadetes);
+            return View(_DB.ReadCadetes());
         }
 
-        public IActionResult CargarCadete(string nombre, string apellido, string tel)
+        public IActionResult AddCadete(string nombre, string apellido, string tel)
         {
             if (nombre is null && apellido is null && tel is null)
             {
@@ -33,15 +30,15 @@ namespace WebAppCadeteria.Controllers
             else
             {
                 _DB.Cadeteria.listaCadetes.Add(new Cadete(nombre, apellido, tel));
-                _DB.SaveCadete(_DB.Cadeteria.listaCadetes);
+                _DB.SaveAllCadetes();
                 return View();
             }
         }
 
         public IActionResult DeleteCadete(Guid id)
         {
-            _DB.Cadeteria.listaCadetes.RemoveAll(x => x.Id == id); //desaparece de la vista
-            _DB.SaveDeleteCadetes(id);
+            _DB.Cadeteria.listaCadetes.RemoveAll(x => x.Id == id);
+            _DB.SaveAllCadetes();
             return View("MostrarCadetes", _DB.Cadeteria.listaCadetes);
         }
 
@@ -57,7 +54,7 @@ namespace WebAppCadeteria.Controllers
             cadADevolver.Nombre = nombre;
             cadADevolver.Apellido = apellido;
             cadADevolver.Telefono = tel;
-            _DB.SaveCadete(_DB.Cadeteria.listaCadetes);
+            _DB.SaveAllCadetes();
             return View("MostrarCadetes", _DB.Cadeteria.listaCadetes);
         }
     }
