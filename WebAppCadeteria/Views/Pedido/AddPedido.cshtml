@@ -6,12 +6,12 @@
 
 <h1>Alta de Pedidos</h1><br />
 
-<form asp-action="AddPedido" method="post">
+<form asp-action="AddPedido" asp-controller="Pedido" method="post">
     <div class="input-group">
         <div class="input-group-prepend">
             <label class="input-group-text" for="select">Cadete</label>
         </div>
-        <select class="custom-select btn-outline-primary" id="select" aria-label="Default select example" name="id">
+        <select class="custom-select btn-outline-primary" id="select" aria-label="Default select example" name="id" required>
             @foreach (var item in Model)
             {
                 <option value="@item.Id">@item.Nombre</option>

@@ -13,27 +13,32 @@ namespace Cadeteria.Model
     {
         public Cadeteria Cadeteria { get; set; }
 
-        string path1 = @"Cadetes.json";
-        string path2= @"Pedidos.json";
+        readonly string pathCadetes = @"Cadetes.json";
+        readonly string pathPedidos = @"Pedidos.json";
 
         public DBTemporal()
         {
             Cadeteria = new Cadeteria();
             if (ReadCadetes() != null)
             {
-                Cadeteria.listaCadetes = ReadCadetes();
+                Cadeteria.ListaCadetes = ReadCadetes();
+            }
+            if (ReadPedidos() != null)
+            {
+                Cadeteria.ListaPedidos = ReadPedidos();
             }
         }
 
+
         /// <summary>
-        /// Guarda la instancia global de cadetes
+        /// Guarda la instancia global de cadetes, se debe especificar el path de guardado
         /// </summary>
         public void SaveAllCadetes()
         {
             try
             {
-                string CadeteJson = JsonSerializer.Serialize(Cadeteria.listaCadetes);
-                using (FileStream miArchivo = new FileStream(path1, FileMode.Create))
+                string CadeteJson = JsonSerializer.Serialize(Cadeteria.ListaCadetes);
+                using (FileStream miArchivo = new FileStream(pathCadetes, FileMode.Create))
                 {
                     using (StreamWriter writer = new StreamWriter(miArchivo))
                     {
@@ -49,14 +54,69 @@ namespace Cadeteria.Model
             }
         }
 
-        public List<Cadete> ReadCadetes()
+        /// <summary>
+        /// Guarda la instancia global de pedidos, se debe especificar el path de guardado
+        /// </summary>
+        public void SaveAllPedidos()
+        {
+            try
+            {
+                string PedidoJson = JsonSerializer.Serialize(Cadeteria.ListaPedidos);
+                using (FileStream miArchivo = new FileStream(pathPedidos, FileMode.Create))
+                {
+                    using (StreamWriter writer = new StreamWriter(miArchivo))
+                    {
+                        writer.Write(PedidoJson);
+                        writer.Close();
+                        writer.Dispose();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+        }
+
+
+        public List<Pedido> ReadPedidos()
+        {
+            List<Pedido> PedidosJson = null;
+            try
+            {
+                if (File.Exists(pathPedidos))
+                {
+                    using (FileStream miArchivo = new FileStream(pathPedidos, FileMode.Open))
+                    {
+                        using (StreamReader reader = new StreamReader(miArchivo))
+                        {
+                            //guarda bien el string pero no deserealiza correctamente
+                            string StrPedidos = reader.ReadToEnd();
+                            PedidosJson = JsonSerializer.Deserialize<List<Pedido>>(StrPedidos);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string error = ex.ToString();
+            }
+            return PedidosJson;
+        }
+
+
+        /// <summary>
+        /// Se ejecuta unicamente al abrir la webapp
+        /// </summary>
+        /// <returns></returns>
+        private List<Cadete> ReadCadetes()
         {
             List<Cadete> CadeteJson = null;
             try
             {
-                if (File.Exists(path1))
+                if (File.Exists(pathCadetes))
                 {
-                    using (FileStream miArchivo = new FileStream(path1, FileMode.Open))
+                    using (FileStream miArchivo = new FileStream(pathCadetes, FileMode.Open))
                     {
                         using (StreamReader reader = new StreamReader(miArchivo))
                         {

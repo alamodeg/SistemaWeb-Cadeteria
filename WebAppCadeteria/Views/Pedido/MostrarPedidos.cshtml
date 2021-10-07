@@ -1,22 +1,22 @@
 ﻿@model List<Cadeteria.Model.Pedido>
 
-<a asp-action="CargarPedido" asp-controller="Pedido" type="button" class="btn btn-danger">Agregar</a>
+<a asp-action="AddPedido" asp-controller="Pedido" type="button" class="btn btn-danger">Agregar</a>
 <h1 class="text-center">Lista de Pedidos</h1><br />
 
 <table class="table table-dark">
     <tr>
         <th scope="col">ID</th>
         <th scope="col">Estado</th>
+        <th scope="col">Apellido</th>
         <th scope="col">Observacion</th>
-        <th scope="col">Cadete</th>
     </tr>
     @foreach (var item in Model)
     {
         <tr>
             <td>@item.Id</td>
             <td>@item.Estado</td>
+            <td>@item.Cliente.Apellido</td>
             <td>@item.Observacion</td>
-            <td>@item</td>
         </tr>
     }
 </table>

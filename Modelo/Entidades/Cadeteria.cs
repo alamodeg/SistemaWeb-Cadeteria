@@ -8,14 +8,14 @@ namespace Cadeteria.Model
 { 
     public class Cadeteria
     {
-        public List<Cadete> listaCadetes { get; set; }
-        public List<Pedido> listaPedidos { get; set; }
+        public List<Cadete> ListaCadetes { get; set; }
+        public List<Pedido> ListaPedidos { get; set; }
 
 
         public Cadeteria()
         {
-            listaCadetes = new List<Cadete>();
-            listaPedidos = new List<Pedido>();
+            ListaCadetes = new List<Cadete>();
+            ListaPedidos = new List<Pedido>();
         }
     }
 }

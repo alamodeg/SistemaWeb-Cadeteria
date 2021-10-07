@@ -8,11 +8,11 @@ namespace Cadeteria.Model
 {
     public class Cadete
     {
-        Guid id;
-        string nombre;
-        string apellido;
-        string telefono;
-        List<Pedido> listadoPedidos;
+        public Guid Id { get; set; }
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
+        public string Telefono { get; set; }
+        public List<Pedido> ListadoPedidos { get; set; }
 
         public Cadete(string nombre, string apellido, string telefono)
         {
@@ -20,14 +20,8 @@ namespace Cadeteria.Model
             this.Nombre = nombre;
             this.Apellido = apellido;
             this.Telefono = telefono;
-            listadoPedidos = new List<Pedido>();
+            ListadoPedidos = new List<Pedido>();
         }
-
-        public Guid Id { get => id; set => id = value; }
-        public string Nombre { get => nombre; set => nombre = value; }
-        public string Apellido { get => apellido; set => apellido = value; }
-        public string Telefono { get => telefono; set => telefono = value; }
-        public List<Pedido> ListadoPedidos { get => listadoPedidos; set => listadoPedidos = value; }
 
         public void CargarPedido(Pedido pedido)
         {

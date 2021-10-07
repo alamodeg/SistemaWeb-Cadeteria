@@ -8,10 +8,10 @@ namespace Cadeteria.Model
 {
     public class Cliente
     {
-        Guid id;
-        string apellido;
-        string direccion;
-        string telefono;
+        public Guid Id { get; set; }
+        public string Apellido { get; set; }
+        public string Direccion { get; set; }
+        public string Telefono { get; set; }
 
         public Cliente(string apellido, string direccion, string telefono)
         {
@@ -20,10 +20,5 @@ namespace Cadeteria.Model
             this.Direccion = direccion;
             this.Telefono = telefono;
         }
-
-        public Guid Id { get => id; set => id = value;}
-        public string Apellido { get => apellido; set => apellido = value; }
-        public string Direccion { get => direccion; set => direccion = value; }
-        public string Telefono { get => telefono; set => telefono = value; }
     }
 }

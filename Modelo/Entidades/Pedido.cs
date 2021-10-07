@@ -6,25 +6,20 @@ using System.Threading.Tasks;
 
 namespace Cadeteria.Model
 {
-    public enum Estado { NoEntregado, Entregado, Encamino, Cancelado };
+    public enum Estado { NoEntregado, Entregado, Encamino, Cancelado }
     public class Pedido
     {
-        Guid id;
-        string observacion;
-        Cliente cliente;
-        Estado estado;
+        public Guid Id { get; set; }
+        public string Observacion { get; set; }
+        public Cliente Cliente { get; set; }
+        public Estado Estado { get; set; }
 
         public Pedido(string observacion ,string apellido, string dir, string tel)
         {
-            this.id = Guid.NewGuid();
-            this.observacion = observacion;
-            this.estado = Estado.NoEntregado;
-            this.cliente = new Cliente(apellido,dir,tel);
+            this.Id = Guid.NewGuid();
+            this.Observacion = observacion;
+            this.Estado = Estado.NoEntregado;
+            this.Cliente = new Cliente(apellido,dir,tel);
         }
-
-        public Guid Id { get => id; set => id = value; }
-        public string Observacion { get => observacion; set => observacion = value; }
-        public Estado Estado { get => estado; set => estado = value; }
-        internal Cliente Cliente { get => cliente; set => cliente = value; }
     }
 }

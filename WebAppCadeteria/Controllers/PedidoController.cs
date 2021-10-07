@@ -21,24 +21,22 @@ namespace WebAppCadeteria.Controllers
 
         public IActionResult MostrarPedidos()
         {
-            return View(_DB.Cadeteria.listaPedidos);
+            return View(_DB.Cadeteria.ListaPedidos);
         }
 
-        public IActionResult CargarPedido(string apellido, string nombre, string tel, string dir, string obs, Guid id)
+        public IActionResult AddPedido(string apellido, string nombre, string tel, string dir, string obs, Guid id)
         {
-            if (apellido is null && dir is null && obs is null && nombre is null && tel is null) return View(_DB.Cadeteria.listaCadetes);
+            if (apellido is null && dir is null && obs is null && nombre is null && tel is null)
+            {
+                return View(_DB.Cadeteria.ListaCadetes);
+            }
 
             Pedido nuevoPed = new Pedido(obs,apellido,dir,tel);
-            _DB.Cadeteria.listaCadetes.Find(item => item.Id == id).CargarPedido(nuevoPed);
-            //foreach (var item in _DB.Cadeteria.listaCadetes)
-            //{
-            //    if (item.Id == id)
-            //    {
-            //        item.CargarPedido(nuevoPed);
-            //    }
-            //}
-            _DB.Cadeteria.listaPedidos.Add(nuevoPed); //cargo a DB el nuevo pedido que se muestra
-            return View(_DB.Cadeteria.listaCadetes);
+            //_DB.Cadeteria.ListaCadetes.Find(item => item.Id == id).CargarPedido(nuevoPed);
+            _DB.Cadeteria.ListaPedidos.Add(nuevoPed);
+            //_DB.SaveAllCadetes(); //reescribo el archivo cadetes ahora con nuevo pedido
+            _DB.SaveAllPedidos(); //guardo todos los pedidos
+            return View(_DB.Cadeteria.ListaCadetes);
         }
     }
 }
