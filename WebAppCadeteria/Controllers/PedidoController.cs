@@ -32,11 +32,24 @@ namespace WebAppCadeteria.Controllers
             }
 
             Pedido nuevoPed = new Pedido(obs,apellido,dir,tel);
-            //_DB.Cadeteria.ListaCadetes.Find(item => item.Id == id).CargarPedido(nuevoPed);
+            _DB.Cadeteria.ListaCadetes.Find(item => item.Id == id).CargarPedido(nuevoPed);
             _DB.Cadeteria.ListaPedidos.Add(nuevoPed);
-            //_DB.SaveAllCadetes(); //reescribo el archivo cadetes ahora con nuevo pedido
+            _DB.SaveAllCadetes(); //reescribo el archivo cadetes ahora con nuevo pedido
             _DB.SaveAllPedidos(); //guardo todos los pedidos
             return View(_DB.Cadeteria.ListaCadetes);
+        }
+
+        public IActionResult DeletePedido(Guid id)
+        {
+            //_DB.Cadeteria.ListaCadetes.Find(item => item.ListadoPedidos.Find == id); //busca cadete con ese pedido
+            foreach (var item in _DB.Cadeteria.ListaCadetes)
+            {
+                item.ListadoPedidos.RemoveAll(item => item.Id == id);
+            }
+            _DB.SaveAllCadetes();
+            _DB.Cadeteria.ListaPedidos.RemoveAll(x => x.Id == id);
+            _DB.SaveAllPedidos();
+            return View("MostrarPedidos", _DB.Cadeteria.ListaPedidos);
         }
     }
 }

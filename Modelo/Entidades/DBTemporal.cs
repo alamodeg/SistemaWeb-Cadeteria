@@ -79,9 +79,9 @@ namespace Cadeteria.Model
         }
 
 
-        public List<Pedido> ReadPedidos()
+        private List<Pedido> ReadPedidos()
         {
-            List<Pedido> PedidosJson = null;
+            List<Pedido> PedidoJson = null;
             try
             {
                 if (File.Exists(pathPedidos))
@@ -90,9 +90,8 @@ namespace Cadeteria.Model
                     {
                         using (StreamReader reader = new StreamReader(miArchivo))
                         {
-                            //guarda bien el string pero no deserealiza correctamente
                             string StrPedidos = reader.ReadToEnd();
-                            PedidosJson = JsonSerializer.Deserialize<List<Pedido>>(StrPedidos);
+                            PedidoJson = JsonSerializer.Deserialize<List<Pedido>>(StrPedidos);
                         }
                     }
                 }
@@ -101,9 +100,8 @@ namespace Cadeteria.Model
             {
                 string error = ex.ToString();
             }
-            return PedidosJson;
+            return PedidoJson;
         }
-
 
         /// <summary>
         /// Se ejecuta unicamente al abrir la webapp
