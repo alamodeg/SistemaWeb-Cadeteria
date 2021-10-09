@@ -1,4 +1,4 @@
-﻿@model List<Cadeteria.Model.Pedido>
+﻿@model Cadeteria.Model.PedidoViewModel
 
 <a asp-action="AddPedido" asp-controller="Pedido" type="button" class="btn btn-danger">Agregar</a>
 <h1 class="text-center">Lista de Pedidos</h1><br />
@@ -9,8 +9,10 @@
         <th scope="col">Estado</th>
         <th scope="col">Apellido</th>
         <th scope="col">Observacion</th>
+        <th scope="col">Eliminar</th>
+        <th scope="col">Reasignar Cadete</th>
     </tr>
-   @foreach (var item in Model)
+   @foreach (var item in Model.ListaPedidos)
    {
     <tr>
         <td>@item.Id</td>
@@ -23,6 +25,17 @@
                 <button type="submit" class="btn btn-danger">X</button>
             </form>
         </td>
+        <td>
+           <form asp-action="ReasignarPedido" asp-controller="Pedido" method="post">
+               <select class="custom-select btn-outline-primary" id="select" aria-label="Default select example" name="id">
+                    @foreach (var x in Model.ListaCadetes)
+                    {
+                        <option value="@x.Id">@x.Nombre</option>
+                    }
+               </select>
+                <button type="submit" class="btn btn-primary">Reasignar</button>
+          </form>
+        </td>
     </tr>
-    }
+   }
 </table>

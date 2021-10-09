@@ -11,9 +11,10 @@
         <div class="input-group-prepend">
             <label class="input-group-text" for="select">Cadete</label>
         </div>
-        <select class="custom-select btn-outline-primary" id="select" aria-label="Default select example" name="id" required>
+        <select class="custom-select btn-outline-primary" id="select" aria-label="Default select example" name="id">
             @foreach (var item in Model)
             {
+                <option value="">SIN CADETE</option>
                 <option value="@item.Id">@item.Nombre</option>
             }
         </select>
