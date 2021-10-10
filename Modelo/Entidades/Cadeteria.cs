@@ -11,7 +11,6 @@ namespace Cadeteria.Model
         public List<Cadete> ListaCadetes { get; set; }
         public List<Pedido> ListaPedidos { get; set; }
 
-
         public Cadeteria()
         {
             ListaCadetes = new List<Cadete>();

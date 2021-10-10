@@ -29,7 +29,6 @@ namespace Cadeteria.Model
             }
         }
 
-
         /// <summary>
         /// Guarda la instancia global de cadetes, se debe especificar el path de guardado
         /// </summary>
@@ -77,7 +76,6 @@ namespace Cadeteria.Model
                 string error = ex.ToString();
             }
         }
-
 
         private List<Pedido> ReadPedidos()
         {

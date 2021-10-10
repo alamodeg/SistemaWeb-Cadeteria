@@ -23,7 +23,7 @@ namespace Cadeteria.Model
         }
 
         /// <summary>
-        /// Para el deserealizador que no funca
+        /// Para el deserealizador que no funciona
         /// </summary>
         public Pedido()
             {

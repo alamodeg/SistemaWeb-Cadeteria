@@ -13,24 +13,24 @@
     </tr>
    @foreach (var item in Model)
     {
-<tr>
-    <td>@item.Id</td>
-    <td>@item.Nombre</td>
-    <td>@item.Apellido</td>
-    <td>@item.Telefono</td>
-    <td>@item.ListadoPedidos.Count()</td>
-    <td>
-        <form asp-action="SelectCadete" asp-controller="Cadete" method="post">
-            <input type="hidden" name="id" value="@item.Id">
-            <button type="submit" class="btn btn-success">Editar</button>
-        </form>
-    </td>
-    <td>
-        <form asp-action="DeleteCadete" asp-controller="Cadete" method="post">
-            <input type="hidden" name="id" value="@item.Id">
-            <button type="submit" class="btn btn-danger">X</button>
-        </form>
-    </td>
-</tr>
+    <tr>
+        <td>@item.Id</td>
+        <td>@item.Nombre</td>
+        <td>@item.Apellido</td>
+        <td>@item.Telefono</td>
+        <td>@item.ListadoPedidos.Count()</td>
+        <td>
+            <form asp-action="SelectCadete" asp-controller="Cadete" method="post">
+                <input type="hidden" name="id_cadete" value="@item.Id">
+                <button type="submit" class="btn btn-success">Editar</button>
+            </form>
+        </td>
+        <td>
+            <form asp-action="DeleteCadete" asp-controller="Cadete" method="post">
+                <input type="hidden" name="id_cadete" value="@item.Id">
+                <button type="submit" class="btn btn-danger">X</button>
+            </form>
+        </td>
+    </tr>
     }
 </table>

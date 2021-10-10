@@ -7,35 +7,36 @@
     <tr>
         <th scope="col">Codigo ID</th>
         <th scope="col">Estado</th>
-        <th scope="col">Apellido</th>
+        <th scope="col">Cliente</th>
         <th scope="col">Observacion</th>
-        <th scope="col">Eliminar</th>
         <th scope="col">Reasignar Cadete</th>
+        <th scope="col">Eliminar</th>
     </tr>
    @foreach (var item in Model.ListaPedidos)
    {
-    <tr>
-        <td>@item.Id</td>
-        <td>@item.Estado</td>
-        <td>@item.Cliente.Apellido</td>
-        <td>@item.Observacion</td>
+<tr>
+    <td>@item.Id</td>
+    <td>@item.Estado</td>
+    <td>@item.Cliente.Apellido</td>
+    <td>@item.Observacion</td>
+    <form asp-action="ReasingPedido" asp-controller="Pedido" method="post">
         <td>
-            <form asp-action="DeletePedido" asp-controller="Pedido" method="post">
-                <input type="hidden" name="id" value="@item.Id">
-                <button type="submit" class="btn btn-danger">X</button>
-            </form>
+            <select class="custom-select btn-outline-primary" id="select" aria-label="Default select example" name="id_cadete">
+                @foreach (var x in Model.ListaCadetes)
+                {
+                    <option value="@x.Id">@x.Nombre</option>
+                }
+            </select>
+            <input type="hidden" name="id_pedido" value="@item.Id">
         </td>
-        <td>
-           <form asp-action="ReasignarPedido" asp-controller="Pedido" method="post">
-               <select class="custom-select btn-outline-primary" id="select" aria-label="Default select example" name="id">
-                    @foreach (var x in Model.ListaCadetes)
-                    {
-                        <option value="@x.Id">@x.Nombre</option>
-                    }
-               </select>
-                <button type="submit" class="btn btn-primary">Reasignar</button>
-          </form>
-        </td>
-    </tr>
+        <td><button type="submit" class="btn btn-primary">Reasignar</button></td>
+    </form>
+    <td>
+        <form asp-action="DeletePedido" asp-controller="Pedido" method="post">
+            <input type="hidden" name="id_pedido" value="@item.Id">
+            <button type="submit" class="btn btn-danger">X</button>
+        </form>
+    </td>
+</tr>
    }
 </table>

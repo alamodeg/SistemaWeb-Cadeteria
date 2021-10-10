@@ -35,36 +35,23 @@ namespace WebAppCadeteria.Controllers
             }
         }
 
-        public IActionResult DeleteCadete(Guid id)
+        public IActionResult DeleteCadete(Guid id_cadete)
         {
-            var DeletedPedidos = _DB.Cadeteria.ListaCadetes.Find(x => x.Id == id).ListadoPedidos; //guardo los pedidos
-            _DB.Cadeteria.ListaCadetes.RemoveAll(x => x.Id == id); // elimino al cadete
+            //var DeletedPedidos = _DB.Cadeteria.ListaCadetes.Find(x => x.Id == id).ListadoPedidos; //guardo los pedidos
+            _DB.Cadeteria.ListaCadetes.RemoveAll(cad => cad.Id == id_cadete); // elimino al cadete
             _DB.SaveAllCadetes();
-            //poder reasignar los pedidos a otro cadete pedido y list de cadetes
-
-            //foreach (var ped in _DB.Cadeteria.ListaPedidos)
-            //{
-            //    foreach (var x in DeletedPedidos)
-            //    {
-            //        if (ped.Id != x.Id)
-            //        {
-            //            _DB.Cadeteria.ListaPedidos.Add(x);
-            //        }
-            //    }    
-            //}
-            //_DB.SaveAllPedidos();
             return View("MostrarCadetes", _DB.Cadeteria.ListaCadetes);
         }
 
-        public IActionResult SelectCadete(Guid id)
+        public IActionResult SelectCadete(Guid id_cadete)
         {
-            var cadeteToEdit = _DB.Cadeteria.ListaCadetes.Find(x => x.Id == id);
+            var cadeteToEdit = _DB.Cadeteria.ListaCadetes.Find(cad => cad.Id == id_cadete);
             return View(cadeteToEdit);
         }
 
-        public IActionResult EditCadete(Guid id, string nombre, string apellido, string tel)
+        public IActionResult EditCadete(Guid id_cadete, string nombre, string apellido, string tel)
         {
-            Cadete cadADevolver = _DB.Cadeteria.ListaCadetes.Find(x => x.Id == id);
+            Cadete cadADevolver = _DB.Cadeteria.ListaCadetes.Find(cad => cad.Id == id_cadete);
             cadADevolver.Nombre = nombre;
             cadADevolver.Apellido = apellido;
             cadADevolver.Telefono = tel;
