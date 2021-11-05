@@ -1,6 +1,7 @@
 ﻿using Cadeteria.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Modelo.Repositorio;
 using System;
 
 namespace WebAppCadeteria.Controllers
@@ -9,16 +10,19 @@ namespace WebAppCadeteria.Controllers
     {
         private readonly ILogger<CadeteController> _logger;
         private readonly DBTemporal _DB;
+        private readonly CadeteRepositorio _cadeteRepositorio;
 
-        public CadeteController(ILogger<CadeteController> logger, DBTemporal DB)
+        public CadeteController(ILogger<CadeteController> logger, DBTemporal DB, CadeteRepositorio cadeteRepositorio)
         {
             _logger = logger;
             _DB = DB;
+            _cadeteRepositorio = cadeteRepositorio;
+
         }
 
         public IActionResult MostrarCadetes()
         {
-            return View(_DB.Cadeteria.ListaCadetes);
+            return View(_cadeteRepositorio.getAll());
         }
 
         public IActionResult AddCadete(string nombre, string apellido, string tel)

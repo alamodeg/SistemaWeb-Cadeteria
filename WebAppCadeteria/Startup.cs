@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Modelo.Repositorio;
 
 namespace WebAppCadeteria
 {
@@ -28,6 +29,9 @@ namespace WebAppCadeteria
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddSingleton(DB);
+            string ConnectionString = Configuration.GetConnectionString("default");
+            CadeteRepositorio repoCadete = new CadeteRepositorio(ConnectionString);
+            services.AddSingleton(repoCadete);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

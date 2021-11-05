@@ -14,6 +14,10 @@ namespace Cadeteria.Model
         public string Telefono { get; set; }
         public List<Pedido> ListadoPedidos { get; set; }
 
+        public Cadete()
+        {
+        }
+
         public Cadete(string nombre, string apellido, string telefono)
         {
             this.Id = Guid.NewGuid();
