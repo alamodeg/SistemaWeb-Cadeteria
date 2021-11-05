@@ -18,7 +18,6 @@
         <td>@item.Nombre</td>
         <td>@item.Apellido</td>
         <td>@item.Telefono</td>
-        <td>@item.ListadoPedidos.Count()</td>
         <td>
             <form asp-action="SelectCadete" asp-controller="Cadete" method="post">
                 <input type="hidden" name="id_cadete" value="@item.Id">

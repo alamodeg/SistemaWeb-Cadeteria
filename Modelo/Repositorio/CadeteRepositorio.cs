@@ -17,13 +17,14 @@ namespace Modelo.Repositorio
             _connectionString = conectionString;
         }
 
+        //"default": "Data Source = Cadeteria.db"
         public List<Cadete> getAll()
         {
             List<Cadete> listaCadetes = new List<Cadete>();
             using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
             {
                 connection.Open();
-                string SQLiteQuery = "SELECT * FROM cadetes where activo=1";
+                string SQLiteQuery = "SELECT * FROM Cadetes";
                 SQLiteCommand command = new SQLiteCommand(SQLiteQuery, connection);
                 SQLiteDataReader dataReader = command.ExecuteReader();
                 while (dataReader.Read())
