@@ -26,7 +26,7 @@ namespace WebAppCadeteria.Controllers
             return View(MostrarPedidosVM);
         }
 
-        public IActionResult AddPedido(string apellido, string nombre, string tel, string dir, string obs, Guid id_cadete)
+        public IActionResult AddPedido(string apellido, string nombre, string tel, string dir, string obs, int id_cadete)
         {
             if (apellido is null && dir is null && obs is null && nombre is null && tel is null)
             {
@@ -41,7 +41,7 @@ namespace WebAppCadeteria.Controllers
             return View(_DB.Cadeteria.ListaCadetes);
         }
 
-        public IActionResult DeletePedido(Guid id_pedido)
+        public IActionResult DeletePedido(int id_pedido)
         {
             _DB.Cadeteria.ListaCadetes.ForEach(cad => cad.ListadoPedidos.RemoveAll(ped => ped.Id == id_pedido));
             _DB.Cadeteria.ListaPedidos.RemoveAll(ped => ped.Id == id_pedido);
@@ -51,7 +51,7 @@ namespace WebAppCadeteria.Controllers
             return View("MostrarPedidos", MostrarPedidosVM);
         }
 
-        public IActionResult ReasingPedido(Guid id_cadete, Guid id_pedido)
+        public IActionResult ReasingPedido(int id_cadete, int id_pedido)
         {
             PedidoViewModel MostrarPedidosVM = new PedidoViewModel(_DB.Cadeteria.ListaPedidos, _DB.Cadeteria.ListaCadetes);
             var OldPedido = _DB.Cadeteria.ListaPedidos.Find(ped => ped.Id == id_pedido);

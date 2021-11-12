@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.31613.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppCadeteria", "WebAppCadeteria\WebAppCadeteria.csproj", "{D89CE2E8-BA94-4989-AB7E-4C68F7DE4877}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modelo", "Modelo\Modelo.csproj", "{A0B432DE-A9A6-4AC1-A874-EC546C788053}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{D89CE2E8-BA94-4989-AB7E-4C68F7DE4877}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D89CE2E8-BA94-4989-AB7E-4C68F7DE4877}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D89CE2E8-BA94-4989-AB7E-4C68F7DE4877}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A0B432DE-A9A6-4AC1-A874-EC546C788053}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A0B432DE-A9A6-4AC1-A874-EC546C788053}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A0B432DE-A9A6-4AC1-A874-EC546C788053}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A0B432DE-A9A6-4AC1-A874-EC546C788053}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
