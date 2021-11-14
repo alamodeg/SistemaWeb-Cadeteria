@@ -12,7 +12,7 @@ namespace Cadeteria.Model
         public string Nombre { get; set; }
         public string Direccion { get; set; }
         public string Telefono { get; set; }
-        public bool Activo { get; set; }
+        public bool EsActivo { get; set; }
         public List<Pedido> ListadoPedidos { get; set; }
 
         public Cadete()
@@ -24,7 +24,7 @@ namespace Cadeteria.Model
             this.Nombre = nombre;
             this.Direccion = direcion;
             this.Telefono = telefono;
-            this.Activo = true;
+            this.EsActivo = true;
             ListadoPedidos = new List<Pedido>();
         }
 

@@ -1,7 +1,7 @@
 ﻿using Cadeteria.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Modelo.Repositorio;
+using Models.Repositorio;
 using System;
 
 namespace WebAppCadeteria.Controllers
@@ -9,20 +9,18 @@ namespace WebAppCadeteria.Controllers
     public class CadeteController : Controller
     {
         private readonly ILogger<CadeteController> _logger;
-        private readonly DBTemporal _DB;
         private readonly CadeteRepositorio _cadeteRepositorio;
 
-        public CadeteController(ILogger<CadeteController> logger, DBTemporal DB, CadeteRepositorio cadeteRepositorio)
+        public CadeteController(ILogger<CadeteController> logger, CadeteRepositorio cadeteRepositorio)
         {
             _logger = logger;
-            //_DB = DB;
             _cadeteRepositorio = cadeteRepositorio;
 
         }
 
         public IActionResult MostrarCadetes()
         {
-            return View(_cadeteRepositorio.getAllCadetes());
+            return View(_cadeteRepositorio.GetEntities());
         }
 
         public IActionResult AddCadete(string nombre, string direccion, string tel)
@@ -33,35 +31,37 @@ namespace WebAppCadeteria.Controllers
             }
             else
             {
-                _cadeteRepositorio.addCadete(new Cadete(nombre, direccion, tel));
-                //_DB.Cadeteria.ListaCadetes.Add(new Cadete(nombre, direccion, tel));
-                //_DB.SaveAllCadetes();
-                return View("MostrarCadetes",_cadeteRepositorio.getAllCadetes());
+                _cadeteRepositorio.AddEntity(new Cadete(nombre, direccion, tel));
+                return View("MostrarCadetes",_cadeteRepositorio.GetEntities());
             }
         }
 
         public IActionResult DeleteCadete(int id_cadete)
         {
-            //var DeletedPedidos = _DB.Cadeteria.ListaCadetes.Find(x => x.Id == id).ListadoPedidos; //guardo los pedidos
-            //_DB.Cadeteria.ListaCadetes.RemoveAll(cad => cad.Id == id_cadete); // elimino al cadete
-            //_DB.SaveAllCadetes();
-            _cadeteRepositorio.deleteCadete(id_cadete);
-            return View("MostrarCadetes",_cadeteRepositorio.getAllCadetes());
+            _cadeteRepositorio.DeleteEntity(id_cadete);
+            return View("MostrarCadetes",_cadeteRepositorio.GetEntities());
         }
 
         public IActionResult SelectCadete(int id_cadete)
         {
-            var cadeteToEdit = _cadeteRepositorio.getAllCadetes().Find(cad => cad.Id == id_cadete);
+            var cadeteToEdit = _cadeteRepositorio.GetEntity(id_cadete);
             return View(cadeteToEdit);
         }
+
         //SE PIERDE EL ID CADETE DESDE LA VISTA A EDIT CADETE
         public IActionResult EditCadete(int id_cadete, string nombre, string direccion, string tel)
         {
-            Cadete cadADevolver = _cadeteRepositorio.getAllCadetes().Find(cad => cad.Id == id_cadete);
-            
-            _cadeteRepositorio.editCadete(cadADevolver);
-            
-            return View("MostrarCadetes", _cadeteRepositorio.getAllCadetes());
+            //Cadete cadADevolver = _cadeteRepositorio.GetEntity(id_cadete);
+            Cadete cadModificar = new Cadete
+            {
+                Id = id_cadete,
+                Nombre = nombre,
+                Direccion = direccion,
+                Telefono = tel
+            };
+
+            _cadeteRepositorio.EditEntity(cadModificar);
+            return View("MostrarCadetes", _cadeteRepositorio.GetEntities());
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Cadeteria.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Models.Repositorio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,21 +12,22 @@ namespace WebAppCadeteria.Controllers
     public class PedidoController : Controller
     {
         private readonly ILogger<PedidoController> _logger;
-        private readonly DBTemporal _DB;
+        private readonly PedidoRepositorio _pedidoRepositorio;
+        private readonly CadeteRepositorio _cadeteRepositorio;
 
-        public PedidoController(ILogger<PedidoController> logger,DBTemporal DB)
+        public PedidoController(ILogger<PedidoController> logger, PedidoRepositorio pedidoRepositorio, CadeteRepositorio cadeteRepositorio)
         {
             _logger = logger;
-            _DB = DB;
-            
+            _pedidoRepositorio = pedidoRepositorio;
+            _cadeteRepositorio = cadeteRepositorio;
         }
 
         public IActionResult MostrarPedidos()
         {
-            PedidoViewModel MostrarPedidosVM = new PedidoViewModel(_DB.Cadeteria.ListaPedidos, _DB.Cadeteria.ListaCadetes);
+            PedidoViewModel MostrarPedidosVM = new PedidoViewModel(_cadeteRepositorio.GetEntities(), _pedidoRepositorio.GetEntities());
             return View(MostrarPedidosVM);
         }
-
+        /*
         public IActionResult AddPedido(string apellido, string nombre, string tel, string dir, string obs, int id_cadete)
         {
             if (apellido is null && dir is null && obs is null && nombre is null && tel is null)
@@ -60,5 +62,6 @@ namespace WebAppCadeteria.Controllers
             _DB.SaveAllCadetes();
             return View("MostrarPedidos", MostrarPedidosVM);
         }
+        */
     }
 }

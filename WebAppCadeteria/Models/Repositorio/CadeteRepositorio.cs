@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modelo.Repositorio
+namespace Models.Repositorio
 {
-    public class CadeteRepositorio
+    public class CadeteRepositorio : IRepository<Cadete>
     {
         private readonly string _connectionString;
 
@@ -17,7 +17,35 @@ namespace Modelo.Repositorio
             _connectionString = conectionString;
         }
 
-        public List<Cadete> getAllCadetes()
+        public Cadete GetEntity(int id)
+        {
+            string SQLiteQuery = "SELECT * FROM Cadetes WHERE cadeteID = @id";
+
+            using (var connection = new SQLiteConnection(_connectionString))
+            {
+                using (SQLiteCommand command = new SQLiteCommand(SQLiteQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+
+                    connection.Open();
+                    var DataReader = command.ExecuteReader();
+                    DataReader.Read();
+
+                    Cadete cadete = new Cadete()
+                    {
+                        Id = Convert.ToInt32(DataReader["cadeteID"]),
+                        Nombre = DataReader["cadeteNombre"].ToString(),
+                        Telefono = DataReader["cadeteTelefono"].ToString(),
+                        Direccion = DataReader["cadeteDireccion"].ToString(),
+                    };
+
+                    connection.Close();
+                    return cadete;
+                }
+            }
+        }
+
+        public List<Cadete> GetEntities()
         {
             List<Cadete> listaCadetes = new List<Cadete>();
             using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
@@ -33,7 +61,7 @@ namespace Modelo.Repositorio
                         Id = Convert.ToInt32(dataReader["cadeteID"]),
                         Nombre = dataReader["cadeteNombre"].ToString(),
                         Telefono = dataReader["cadeteTelefono"].ToString(),
-                        Direccion = dataReader["cadeteDireccion"].ToString()
+                        Direccion = dataReader["cadeteDireccion"].ToString(),
                     };
                     listaCadetes.Add(cadete);
                 }
@@ -42,7 +70,7 @@ namespace Modelo.Repositorio
             return listaCadetes;
         }
 
-        public void addCadete(Cadete cadete)
+        public void AddEntity(Cadete cadete)
         {
             using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
             {
@@ -52,12 +80,12 @@ namespace Modelo.Repositorio
                 command.Parameters.AddWithValue("@nombre", cadete.Nombre);
                 command.Parameters.AddWithValue("@direccion", cadete.Direccion);
                 command.Parameters.AddWithValue("@telefono", cadete.Telefono);
-                command.Parameters.AddWithValue("@true", cadete.Activo);
+                command.Parameters.AddWithValue("@true", cadete.EsActivo);
                 command.ExecuteNonQuery();
                 connection.Close();
             }
         }
-        public void editCadete(Cadete cadModificar)
+        public void EditEntity(Cadete cadModificar)
         {
             try
             {
@@ -86,7 +114,7 @@ namespace Modelo.Repositorio
             }
         }
 
-        public void deleteCadete(int id)
+        public void DeleteEntity(int id)
         {
             try
             {

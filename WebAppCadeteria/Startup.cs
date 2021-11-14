@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Modelo.Repositorio;
+using Models.Repositorio;
 
 namespace WebAppCadeteria
 {
@@ -27,11 +27,10 @@ namespace WebAppCadeteria
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            services.AddSingleton(DB);
+            services.AddControllersWithViews();
             string ConnectionString = Configuration.GetConnectionString("default");
-            CadeteRepositorio repoCadete = new CadeteRepositorio(ConnectionString);
-            services.AddSingleton(repoCadete);
+            CadeteRepositorio repoCadete = new CadeteRepositorio(ConnectionString); services.AddSingleton(repoCadete);
+            PedidoRepositorio repoPedido = new PedidoRepositorio(ConnectionString); services.AddSingleton(repoPedido);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
