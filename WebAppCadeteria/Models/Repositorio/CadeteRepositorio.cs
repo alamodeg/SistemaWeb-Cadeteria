@@ -20,8 +20,10 @@ namespace Models.Repositorio
         public List<Cadete> GetEntities()
         {
             List<Cadete> listaCadetes = new();
-            string SQLiteQuery = "SELECT * FROM Cadetes WHERE esActivo = 1";
-
+            string SQLiteQuery = @"SELECT *, count(Pedidos.cadeteId) AS numPedidos FROM Cadetes
+                                   INNER JOIN Pedidos ON Cadetes.cadeteID = Pedidos.cadeteId
+                                   WHERE esActivo = 1
+                                   GROUP BY(Pedidos.cadeteId);";
             try
             {
                 using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
