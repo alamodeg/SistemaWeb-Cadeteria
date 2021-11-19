@@ -32,5 +32,17 @@ namespace Cadeteria.Model
         {
             ListadoPedidos.Add(pedido);
         }
+
+        public int TotalPedidos()
+        {
+            if (ListadoPedidos is not null)
+            {
+                return ListadoPedidos.Count;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }

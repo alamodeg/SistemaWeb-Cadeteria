@@ -15,8 +15,6 @@ namespace WebAppCadeteria
 {
     public class Startup
     {
-        static DBTemporal DB = new DBTemporal();
-        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;

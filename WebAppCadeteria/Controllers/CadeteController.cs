@@ -15,7 +15,6 @@ namespace WebAppCadeteria.Controllers
         {
             _logger = logger;
             _cadeteRepositorio = cadeteRepositorio;
-
         }
 
         public IActionResult MostrarCadetes()
@@ -51,7 +50,6 @@ namespace WebAppCadeteria.Controllers
         //SE PIERDE EL ID CADETE DESDE LA VISTA A EDIT CADETE
         public IActionResult EditCadete(int id_cadete, string nombre, string direccion, string tel)
         {
-            //Cadete cadADevolver = _cadeteRepositorio.GetEntity(id_cadete);
             Cadete cadModificar = new Cadete
             {
                 Id = id_cadete,

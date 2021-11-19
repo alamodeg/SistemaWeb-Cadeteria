@@ -7,7 +7,7 @@
     <tr>
         <th scope="col">Codigo ID</th>
         <th scope="col">Estado</th>
-        <th scope="col">CLIENTE???</th>
+        <th scope="col">Cliente</th>
         <th scope="col">Observacion</th>
         <th scope="col">Reasignar Cadete</th>
         <th scope="col">Eliminar</th>
@@ -17,7 +17,7 @@
 <tr>
     <td>@item.Id</td>
     <td>@item.Estado</td>
-    <td>CLIENTE???</td>
+    <td>@item.Cliente.Apellido</td>
     <td>@item.Observacion</td>
     <form asp-action="ReasingPedido" asp-controller="Pedido" method="post">
     <td>

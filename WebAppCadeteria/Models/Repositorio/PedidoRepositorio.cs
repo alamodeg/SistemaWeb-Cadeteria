@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Models.Repositorio
 {
-    public class PedidoRepositorio : IRepository<Pedido>
+    public class PedidoRepositorio
     {
         private readonly string _connectionString;
 
@@ -34,30 +34,38 @@ namespace Models.Repositorio
         public List<Pedido> GetEntities()
         {
             List<Pedido> listaPedidos = new List<Pedido>();
+            String SQLiteQuery = @"SELECT * FROM Pedidos 
+                                        INNER JOIN Cadetes ON Cadetes.cadeteId = Pedidos.CadeteID
+                                        INNER JOIN Clientes ON Pedidos.clienteId = Clientes.clienteID";
+
             using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
             {
-                connection.Open();
-                string SQLiteQuery = "SELECT * FROM Pedidos";
-                SQLiteCommand command = new SQLiteCommand(SQLiteQuery, connection);
-                SQLiteDataReader dataReader = command.ExecuteReader();
-                while (dataReader.Read())
+                using (SQLiteCommand command = new SQLiteCommand(SQLiteQuery, connection))
                 {
-                    Pedido ped = new Pedido()
+                    connection.Open();
+                    using (SQLiteDataReader dataReader = command.ExecuteReader())
                     {
-                        Id = Convert.ToInt32(dataReader["cadeteID"]),
-                        Observacion = dataReader["pedidoObs"].ToString(),
-                        Estado = (Estado)Convert.ToInt32(dataReader["pedidoEstado"])
-                    };
-                    listaPedidos.Add(ped);
+                        while (dataReader.Read())
+                        {
+                            Pedido ped = new Pedido
+                            {
+                                Id = Convert.ToInt32(dataReader["pedidoID"]),
+                                Observacion = dataReader["pedidoObs"].ToString(),
+                                Estado = (Estado)Convert.ToInt32(dataReader["pedidoEstado"]),
+                                Cliente = new Cliente() { Apellido = dataReader["clienteNombre"].ToString() }
+                            };
+                            listaPedidos.Add(ped);
+                        }
+                        connection.Close();
+                    }
                 }
-                connection.Close();
             }
             return listaPedidos;
         }
-
-        public Pedido GetEntity(int id)
+        
+        public Pedido GetEntity()
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
 }

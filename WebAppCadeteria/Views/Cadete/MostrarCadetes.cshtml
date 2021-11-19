@@ -9,7 +9,7 @@
         <th scope="col">Nombre</th>
         <th scope="col">Direccion</th>
         <th scope="col">Telefono</th>
-        <th scope="col">N° Pedidos</th>
+        <th scope="col">N° Pedidos??????????</th>
     </tr>
    @foreach (var item in Model)
     {
@@ -18,7 +18,7 @@
         <td>@item.Nombre</td>
         <td>@item.Direccion</td>
         <td>@item.Telefono</td>
-        <td>REVISAR N° pedidos</td>
+        <td>@item.TotalPedidos()</td>
         <td>
             <form asp-action="SelectCadete" asp-controller="Cadete" method="post">
                 <input type="hidden" name="id_cadete" value="@item.Id">

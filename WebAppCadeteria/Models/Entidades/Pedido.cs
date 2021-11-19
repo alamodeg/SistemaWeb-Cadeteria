@@ -14,16 +14,13 @@ namespace Cadeteria.Model
         public Cliente Cliente { get; set; }
         public Estado Estado { get; set; }
 
-        public Pedido(string observacion, string apellido, string dir, string tel)
+        public Pedido(string observacion, Cliente cliente, Estado estado)
         {
             this.Observacion = observacion;
-            this.Estado = Estado.NoEntregado;
-            this.Cliente = new Cliente(apellido, dir, tel);
+            this.Estado = estado;
+            this.Cliente = cliente;
         }
 
-        /// <summary>
-        /// Para el deserealizador que no funciona
-        /// </summary>
         public Pedido()
             {
             }
