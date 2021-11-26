@@ -20,10 +20,10 @@ namespace Models.Repositorio
         public List<Cadete> GetEntities()
         {
             List<Cadete> listaCadetes = new();
-            string SQLiteQuery = @"SELECT *, count(Pedidos.cadeteId) AS numPedidos FROM Cadetes
-                                   INNER JOIN Pedidos ON Cadetes.cadeteID = Pedidos.cadeteId
-                                   WHERE esActivo = 1
-                                   GROUP BY(Pedidos.cadeteId);";
+            string SQLiteQuery = @"SELECT *,count(Pedidos.cadeteId) as numPedidos FROM Cadetes
+                                    LEFT JOIN Pedidos ON Cadetes.cadeteID = Pedidos.cadeteId
+                                    WHERE esActivo = 1
+                                    GROUP BY Cadetes.cadeteID";
             try
             {
                 using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
@@ -35,13 +35,12 @@ namespace Models.Repositorio
                         {
                             while (dataReader.Read())
                             {
-                                Cadete cadete = new Cadete()
-                                {
-                                    Id = Convert.ToInt32(dataReader["cadeteID"]),
-                                    Nombre = dataReader["cadeteNombre"].ToString(),
-                                    Telefono = dataReader["cadeteTelefono"].ToString(),
-                                    Direccion = dataReader["cadeteDireccion"].ToString(),
-                                };
+                                Cadete cadete = new Cadete();
+                                cadete.Id = Convert.ToInt32(dataReader["cadeteID"]);
+                                cadete.Nombre = dataReader["cadeteNombre"].ToString();
+                                cadete.Telefono = dataReader["cadeteTelefono"].ToString();
+                                cadete.Direccion = dataReader["cadeteDireccion"].ToString();
+                                cadete.TotalPedidos = Convert.ToInt32(dataReader["numPedidos"]);
                                 listaCadetes.Add(cadete);
                             }
                             dataReader.Close();
@@ -101,7 +100,7 @@ namespace Models.Repositorio
                         command.Parameters.AddWithValue("@nombre", cadete.Nombre);
                         command.Parameters.AddWithValue("@direccion", cadete.Direccion);
                         command.Parameters.AddWithValue("@telefono", cadete.Telefono);
-                        command.Parameters.AddWithValue("@true", cadete.EsActivo);
+                        command.Parameters.AddWithValue("@1", cadete.EsActivo);
                         connection.Open();
                         command.ExecuteNonQuery();
                         connection.Close();
@@ -144,7 +143,7 @@ namespace Models.Repositorio
         public void DeleteEntity(int id)
         {
             string SQLiteQuery = @"UPDATE Cadetes 
-                                      SET activo = 0
+                                      SET esActivo = 0
                                       WHERE cadeteID = @id";
             try
             {

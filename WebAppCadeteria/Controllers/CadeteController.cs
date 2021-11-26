@@ -1,8 +1,11 @@
-﻿using Cadeteria.Model;
+﻿using AutoMapper;
+using Cadeteria.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Models.Repositorio;
 using System;
+using System.Collections.Generic;
+using WebAppCadeteria.Models.ViewModels;
 
 namespace WebAppCadeteria.Controllers
 {
@@ -10,16 +13,20 @@ namespace WebAppCadeteria.Controllers
     {
         private readonly ILogger<CadeteController> _logger;
         private readonly CadeteRepositorio _cadeteRepositorio;
+        private readonly IMapper _mapper;
 
-        public CadeteController(ILogger<CadeteController> logger, CadeteRepositorio cadeteRepositorio)
+        public CadeteController(ILogger<CadeteController> logger, CadeteRepositorio cadeteRepositorio, IMapper mapper)
         {
             _logger = logger;
             _cadeteRepositorio = cadeteRepositorio;
+            _mapper = mapper;
         }
 
         public IActionResult MostrarCadetes()
         {
-            return View(_cadeteRepositorio.GetEntities());
+            List<Cadete> listaCadetes = _cadeteRepositorio.GetEntities();
+            var listaCadetesVM = _mapper.Map<List<MostrarCadetesVM>>(listaCadetes);
+            return View(listaCadetesVM);
         }
 
         public IActionResult AddCadete(string nombre, string direccion, string tel)
@@ -31,14 +38,18 @@ namespace WebAppCadeteria.Controllers
             else
             {
                 _cadeteRepositorio.AddEntity(new Cadete(nombre, direccion, tel));
-                return View("MostrarCadetes",_cadeteRepositorio.GetEntities());
+                List<Cadete> listaCadetes = _cadeteRepositorio.GetEntities();
+                var listaCadetesVM = _mapper.Map<List<MostrarCadetesVM>>(listaCadetes);
+                return View("MostrarCadetes", listaCadetesVM);
             }
         }
 
         public IActionResult DeleteCadete(int id_cadete)
         {
             _cadeteRepositorio.DeleteEntity(id_cadete);
-            return View("MostrarCadetes",_cadeteRepositorio.GetEntities());
+            List<Cadete> listaCadetes = _cadeteRepositorio.GetEntities();
+            var listaCadetesVM = _mapper.Map<List<MostrarCadetesVM>>(listaCadetes);
+            return View("MostrarCadetes", listaCadetesVM);
         }
 
         public IActionResult SelectCadete(int id_cadete)
@@ -47,7 +58,6 @@ namespace WebAppCadeteria.Controllers
             return View(cadeteToEdit);
         }
 
-        //SE PIERDE EL ID CADETE DESDE LA VISTA A EDIT CADETE
         public IActionResult EditCadete(int id_cadete, string nombre, string direccion, string tel)
         {
             Cadete cadModificar = new Cadete
@@ -57,9 +67,10 @@ namespace WebAppCadeteria.Controllers
                 Direccion = direccion,
                 Telefono = tel
             };
-
             _cadeteRepositorio.EditEntity(cadModificar);
-            return View("MostrarCadetes", _cadeteRepositorio.GetEntities());
+            List<Cadete> listaCadetes = _cadeteRepositorio.GetEntities();
+            var listaCadetesVM = _mapper.Map<List<MostrarCadetesVM>>(listaCadetes);
+            return View("MostrarCadetes", listaCadetesVM);
         }
     }
 }

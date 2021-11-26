@@ -29,6 +29,7 @@ namespace WebAppCadeteria
             string ConnectionString = Configuration.GetConnectionString("default");
             CadeteRepositorio repoCadete = new CadeteRepositorio(ConnectionString); services.AddSingleton(repoCadete);
             PedidoRepositorio repoPedido = new PedidoRepositorio(ConnectionString); services.AddSingleton(repoPedido);
+            services.AddAutoMapper(typeof(WebAppCadeteria.Mapper.PerfilDeMapeo));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

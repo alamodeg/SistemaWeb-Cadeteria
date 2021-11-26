@@ -13,6 +13,7 @@ namespace Cadeteria.Model
         public string Direccion { get; set; }
         public string Telefono { get; set; }
         public bool EsActivo { get; set; }
+        public int TotalPedidos { get; set; }
         public List<Pedido> ListadoPedidos { get; set; }
 
         public Cadete()
@@ -27,22 +28,5 @@ namespace Cadeteria.Model
             this.EsActivo = true;
             ListadoPedidos = new List<Pedido>();
         }
-
-        public void CargarPedido(Pedido pedido)
-        {
-            ListadoPedidos.Add(pedido);
-        }
-
-        public int TotalPedidos()
-        {
-            if (ListadoPedidos is not null)
-            {
-                return ListadoPedidos.Count;
-            }
-            else
-            {
-                return 0;
-            }
-        }
-    }
+     }
 }
