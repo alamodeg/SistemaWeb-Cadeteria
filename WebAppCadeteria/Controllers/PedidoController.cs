@@ -34,26 +34,24 @@ namespace WebAppCadeteria.Controllers
             MostrarPedidosVM pedidosYcadetes = new MostrarPedidosVM(_cadeteRepositorio.GetEntities(), _pedidoRepositorio.GetEntities());
             return View(pedidosYcadetes);
         }
-
-        public IActionResult AddPedido(int id_cadete , int id_cliente)
+         
+        public IActionResult AltaPedido()
         {
-            var cadetes = _cadeteRepositorio.GetEntities();
-            var clientes = _clienteRepositorio.GetEntities();
+            AltaPedidoVM model = new AltaPedidoVM();
+            
+            model.listas.listaCadetes = _cadeteRepositorio.GetEntities();
+            model.listas.listaClientes = _clienteRepositorio.GetEntities();
 
-            if (id_cadete == 0 || id_cliente == 0)
-            {
-                return Redirect("MostrarPedidos");
-            }
-            else
-            {
-                //var tosave = _mapper.Map<Pedido>(pedido);
-                Pedido ped = new();
-                ped.Estado = Estado.NoEntregado;
+            return View(model);
+        }
 
-                //_pedidoRepositorio.AddEntity(ped,id_cadete, id_cliente);
 
-                return Redirect("MostrarPedidos");
-            }
+        public IActionResult AddPedido(AltaPedidoVM model)
+        {
+
+            model.Pedido.Estado = Estado.NoEntregado;
+            _pedidoRepositorio.AddEntity(model.Pedido,model.IdCadete,model.IdCliente);
+            return Redirect("MostrarPedidos");
 
         }
         /*

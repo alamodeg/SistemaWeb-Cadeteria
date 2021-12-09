@@ -16,7 +16,7 @@ namespace Models.Repositorio
             _connectionString = conectionString;
         }
 
-        public void AddEntity(int idcadete,int idcliente)
+        public void AddEntity(Pedido pedido,int idcadete,int idcliente)
         {
             string SQLiteQuery = @"INSERT INTO Pedidos(pedidoObs,clienteId,cadeteId,pedidoEstado)
                                                values(@obs, @idcliente, @idcadete,1);";
@@ -26,10 +26,10 @@ namespace Models.Repositorio
                 {
                     using (SQLiteCommand command = new SQLiteCommand(SQLiteQuery, connection))
                     {
-                        //command.Parameters.AddWithValue("@obs", pedido.Observacion);
+                        command.Parameters.AddWithValue("@obs", pedido.Observacion);
                         command.Parameters.AddWithValue("@idcliente", idcliente);
                         command.Parameters.AddWithValue("@idcadete", idcadete);
-                        //command.Parameters.AddWithValue("1", pedido.Estado);
+                        command.Parameters.AddWithValue("1", pedido.Estado);
                         connection.Open();
                         command.ExecuteNonQuery();
                         connection.Close();

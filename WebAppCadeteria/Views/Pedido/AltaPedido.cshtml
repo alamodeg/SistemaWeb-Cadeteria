@@ -1,25 +1,21 @@
-﻿@model WebAppCadeteria.Models.ViewModels.AddPedidoVM
+﻿@model WebAppCadeteria.Models.ViewModels.AltaPedidoVM
 
 @{
-    ViewData["Title"] = "AddPedido";
+    ViewData["Title"] = "AltaPedido";
 }
 
-<h1>Alta de pedido</h1>
+<h1>AltaPedido</h1>
 
+<h4>AltaPedidoVM</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="AddPedido">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Obs" class="control-label"></label>
-                <input asp-for="Obs" class="form-control" />
-                <span asp-validation-for="Obs" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <h5>Cadete</h5>
-                <select name="id_cadete" id="id_cadete" class="form-select">
-                    @foreach (var Cadete in Model.listaCadetes)
+                <select name="IdCadete" id="IdCadete" class="form-select">
+                    @foreach (var Cadete in Model.listas.listaCadetes)
                     {
                         <option value="@Cadete.Id">@Cadete.Nombre</option>
                     }
@@ -27,19 +23,25 @@
             </div>
             <div class="form-group">
                 <h5>Cliente</h5>
-                <select name="id_cliente" id="id_cliente" class="form-select">
-                    @foreach (var Cliente in Model.listaClientes)
+                <select name="IdCliente" id="IdCliente" class="form-select">
+                    @foreach (var Cliente in Model.listas.listaClientes)
                     {
                         <option value="@Cliente.Id">@Cliente.Apellido</option>
                     }
                 </select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Crear" class="btn btn-primary" />
+                <label asp-for="Pedido.Observacion" class="control-label"></label>
+                <input asp-for="Pedido.Observacion" class="form-control" />
+                <span asp-validation-for="Pedido.Observacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
