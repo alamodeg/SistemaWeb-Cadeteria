@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Cadeteria.Model
 {
-    public class PedidoViewModel
+    public class MostrarPedidosVM
     {
         public List<Cadete> ListaCadetes { get; set; }
         public List<Pedido> ListaPedidos { get; set; }
 
-        public PedidoViewModel(List<Cadete> listaCadetes, List<Pedido> listaPedidos)
+        public MostrarPedidosVM(List<Cadete> listaCadetes, List<Pedido> listaPedidos)
         {
             ListaPedidos = listaPedidos;
             ListaCadetes = listaCadetes;

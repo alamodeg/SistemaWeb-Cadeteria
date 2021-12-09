@@ -163,5 +163,44 @@ namespace Models.Repositorio
                 var error = ex.Message;
             }
         }
+
+        private List<Pedido> GetPedidos(int id_pedido)
+        {
+            List<Pedido> listaPedido = new List<Pedido>();
+            string SQLiteQuery = "SELECT * FROM Pedido WHERE pedidoID = @id_pedido";
+
+            try
+            {
+                using (var connection = new SQLiteConnection(_connectionString))
+                {
+                    using (SQLiteCommand command = new SQLiteCommand(SQLiteQuery, connection))
+                    {
+                        connection.Open();
+                        using (SQLiteDataReader dataReader = command.ExecuteReader())
+                        {
+                            while (dataReader.Read())
+                            {
+                                Pedido pedido = new Pedido()
+                                {
+                                    Id = Convert.ToInt32(dataReader["pedidoID"]),
+                                    Observacion = dataReader["pedidoObs"].ToString(),
+                                    /*Cliente = new Cliente() { Apellido = dataReader["clienteNombre"].ToString() },
+                                    TODO: falta el inner join de la consulta*/
+                                    Estado = (Estado)Convert.ToInt32(dataReader["pedidoEstado"]),
+                                };
+                                listaPedido.Add(pedido);
+                            }
+                            dataReader.Close();
+                        }
+                        connection.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                var error = ex.Message;
+            }
+            return listaPedido;
+        }
     }
 }

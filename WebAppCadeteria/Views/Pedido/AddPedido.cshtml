@@ -1,43 +1,46 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model WebAppCadeteria.Models.ViewModels.AddPedidoVM
+
+@{
+    ViewData["Title"] = "AddPedido";
 }
 
-@model List<Cadeteria.Model.Cadete>
+<h1>Alta de pedido</h1>
 
-<h1>Alta de Pedidos</h1><br />
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddPedido">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Obs" class="control-label"></label>
+                <input asp-for="Obs" class="form-control" />
+                <span asp-validation-for="Obs" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <h5>Cadete</h5>
+                <select name="id_cadete" id="id_cadete" class="form-select">
+                    @foreach (var Cadete in Model.listaCadetes)
+                    {
+                        <option value="@Cadete.Id">@Cadete.Nombre</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <h5>Cliente</h5>
+                <select name="id_cliente" id="id_cliente" class="form-select">
+                    @foreach (var Cliente in Model.listaClientes)
+                    {
+                        <option value="@Cliente.Id">@Cliente.Apellido</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Crear" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
 
-<form asp-action="AddPedido" asp-controller="Pedido" method="post">
-    <div class="input-group">
-        <div class="input-group-prepend">
-            <label class="input-group-text" for="select">Cadete</label>
-        </div>
-        <select class="custom-select btn-outline-primary" id="select" aria-label="Default select example" name="id_cadete">
-            @foreach (var item in Model)
-            {
-                <option value="@item.Id">@item.Nombre</option>
-            }
-        </select>
-    </div><br />
-    <div class="form-group">
-        <label for="apellido">Apellido del Cliente</label>
-        <input type="text" name="apellido" placeholder="Gomez" required />
-    </div>
-    <div class="form-group">
-        <label for="nombre">Nombre del cliente</label>
-        <input type="text" name="nombre" placeholder="Garcia" required />
-    </div>
-    <div class="form-group">
-        <label for="dir">Direccion del cliente</label>
-        <input type="text" name="dir" placeholder="Av. Belgrano 4100" required />
-    </div>
-    <div class="form-group">
-        <label for="tel">Telefono del cliente</label>
-        <input type="text" name="tel" placeholder="4659853" required />
-    </div>
-    <div class="form-group">
-        <label for="obs">Observaciones</label>
-        <input type="text" name="obs" placeholder="¡CUIDADO con el perro!" required />
-    </div>
-    <br /><br />
-    <input type="submit" class="btn btn-primary" value="Enviar" />
-</form>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -19,6 +19,7 @@ namespace Cadeteria.Model
             this.Observacion = observacion;
             this.Estado = estado;
             this.Cliente = cliente;
+            this.Estado = Estado.NoEntregado;
         }
 
         public Pedido()

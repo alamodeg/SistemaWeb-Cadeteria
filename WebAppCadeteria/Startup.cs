@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Models.Repositorio;
+using WebAppCadeteria.Models.Repositorio;
 
 namespace WebAppCadeteria
 {
@@ -26,10 +27,21 @@ namespace WebAppCadeteria
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            
             string ConnectionString = Configuration.GetConnectionString("default");
+            
             CadeteRepositorio repoCadete = new CadeteRepositorio(ConnectionString); services.AddSingleton(repoCadete);
             PedidoRepositorio repoPedido = new PedidoRepositorio(ConnectionString); services.AddSingleton(repoPedido);
-            services.AddAutoMapper(typeof(WebAppCadeteria.Mapper.PerfilDeMapeo));
+            UsuarioRepositorio repoUsuario = new UsuarioRepositorio(ConnectionString); services.AddSingleton(repoUsuario);
+            ClienteRepositorio repoCliente = new ClienteRepositorio(ConnectionString); services.AddSingleton(repoCliente);
+
+            services.AddAutoMapper(typeof(Mapper.PerfilDeMapeo));
+            
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(3600);
+                options.Cookie.IsEssential = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +61,8 @@ namespace WebAppCadeteria
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseSession();
 
             app.UseAuthorization();
 

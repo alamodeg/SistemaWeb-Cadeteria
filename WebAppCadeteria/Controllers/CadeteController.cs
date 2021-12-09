@@ -3,9 +3,10 @@ using Cadeteria.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Models.Repositorio;
-using System;
 using System.Collections.Generic;
-using WebAppCadeteria.Models.ViewModels;
+using Microsoft.AspNetCore.Session;
+using Microsoft.AspNetCore.Http;
+using WebAppCadeteria.Models.Repositorio;
 
 namespace WebAppCadeteria.Controllers
 {
@@ -13,12 +14,14 @@ namespace WebAppCadeteria.Controllers
     {
         private readonly ILogger<CadeteController> _logger;
         private readonly CadeteRepositorio _cadeteRepositorio;
+        private readonly UsuarioRepositorio _usuarioRepositorio;
         private readonly IMapper _mapper;
 
-        public CadeteController(ILogger<CadeteController> logger, CadeteRepositorio cadeteRepositorio, IMapper mapper)
+        public CadeteController(ILogger<CadeteController> logger, CadeteRepositorio cadeteRepositorio, UsuarioRepositorio usuarioRepositorio, IMapper mapper)
         {
             _logger = logger;
             _cadeteRepositorio = cadeteRepositorio;
+            _usuarioRepositorio = usuarioRepositorio;
             _mapper = mapper;
         }
 
@@ -60,6 +63,7 @@ namespace WebAppCadeteria.Controllers
 
         public IActionResult EditCadete(int id_cadete, string nombre, string direccion, string tel)
         {
+
             Cadete cadModificar = new Cadete
             {
                 Id = id_cadete,
