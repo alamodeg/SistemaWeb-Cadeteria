@@ -9,7 +9,6 @@
         <th scope="col">Estado</th>
         <th scope="col">Cliente</th>
         <th scope="col">Observacion</th>
-        <th scope="col">Cadetes</th>
     </tr>
    @foreach (var item in Model.ListaPedidos)
    {
@@ -18,24 +17,6 @@
     <td>@item.Estado</td>
     <td>@item.Cliente.Apellido</td>
     <td>@item.Observacion</td>
-    <td>
-        <fieldset>
-            <select class="custom-select-sm" name="idCadete" aria-label="Default select example">
-                @foreach (var cadete in Model.ListaCadetes)
-                {
-                    if (cadete.Id == item.Id)
-                    {
-                        <option value="@cadete.Id" selected>@cadete.Nombre</option>
-                    }
-                    else
-                    {
-                        <option value="@cadete.Id">@cadete.Nombre</option>
-                    }
-                }
-            </select>
-        </fieldset>
-    </td>
-
     <td>
         <form asp-action="SelectPedido" asp-controller="Pedido" method="post">
             <input type="hidden" name="id_pedido" value="@item.Id">
