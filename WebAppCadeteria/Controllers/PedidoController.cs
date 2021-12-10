@@ -73,7 +73,14 @@ namespace WebAppCadeteria.Controllers
                 Observacion = pedidoVM.Observacion,
                 Estado = pedidoVM.Estado,
             };
+
             _pedidoRepositorio.EditEntity(pedModificar,pedidoVM.IdCadete,pedidoVM.IdCliente);
+            return Redirect("MostrarPedidos");
+        }
+
+        public IActionResult DeletePedido(int id_pedido)
+        {
+            _pedidoRepositorio.DeleteEntity(id_pedido);
             return Redirect("MostrarPedidos");
         }
     }

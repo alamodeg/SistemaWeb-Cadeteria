@@ -44,14 +44,33 @@ namespace Models.Repositorio
 
         public void DeleteEntity(int id)
         {
-            throw new NotImplementedException();
+            string SQLiteQuery = @"UPDATE Pedidos 
+                                      SET esActivo = 0
+                                      WHERE pedidoID = @id";
+            try
+            {
+                using (var connection = new SQLiteConnection(_connectionString))
+                {
+                    using (SQLiteCommand command = new SQLiteCommand(SQLiteQuery, connection))
+                    {
+                        connection.Open();
+                        command.Parameters.AddWithValue("@id", id);
+                        command.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                var error = ex.Message;
+            }
         }
 
         public void EditEntity(Pedido pediModificado,int IdCadete,int IdCliente)
         {
             string SQLiteQuery = @"UPDATE Pedidos 
-                                    SET pedidoObs = @observacion,clienteId = @idcliente,cadeteId = @idcadete
-                                    WHERE pedidoID = @pedidoID;";
+                                    SET pedidoObs = @observacion,clienteId = @idcliente,cadeteId = @idcadete,pedidoEstado=@estado
+                                    WHERE pedidoID = @id;";
             try
             {
                 using (var connection = new SQLiteConnection(_connectionString))
@@ -61,10 +80,12 @@ namespace Models.Repositorio
                         connection.Open();
                         command.Parameters.AddWithValue("@id", pediModificado.Id);
                         command.Parameters.AddWithValue("@observacion", pediModificado.Observacion);
-                        command.Parameters.AddWithValue("@cadeteId", IdCadete);
-                        command.Parameters.AddWithValue("@clienteId", IdCadete);
+                        command.Parameters.AddWithValue("@estado", pediModificado.Estado);
+                        command.Parameters.AddWithValue("@idcadete", IdCadete);
+                        command.Parameters.AddWithValue("@idcliente", IdCliente);
+                        var testo = pediModificado;
                         command.ExecuteNonQuery();
-                        var A = pediModificado;
+
                         connection.Close();
                     }
                 }
