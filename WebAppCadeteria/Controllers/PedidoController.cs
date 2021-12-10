@@ -54,26 +54,27 @@ namespace WebAppCadeteria.Controllers
             return Redirect("MostrarPedidos");
 
         }
-        /*
-    public IActionResult DeletePedido(int id_pedido)
-    {
-        _DB.Cadeteria.ListaCadetes.ForEach(cad => cad.ListadoPedidos.RemoveAll(ped => ped.Id == id_pedido));
-        _DB.Cadeteria.ListaPedidos.RemoveAll(ped => ped.Id == id_pedido);
-        _DB.SaveAllCadetes();
-        _DB.SaveAllPedidos();
-        PedidoViewModel MostrarPedidosVM = new PedidoViewModel(_DB.Cadeteria.ListaPedidos, _DB.Cadeteria.ListaCadetes);
-        return View("MostrarPedidos", MostrarPedidosVM);
-    }
-        */
-
-        public IActionResult ReasingPedido(int id_cadete, int id_pedido)
+        public IActionResult SelectPedido(int id_pedido)
         {
-            //PedidoViewModel MostrarPedidosVM = new PedidoViewModel();
-            //var OldPedido = _DB.Cadeteria.ListaPedidos.Find(ped => ped.Id == id_pedido);
-            //_DB.Cadeteria.ListaCadetes.ForEach(cad => cad.ListadoPedidos.RemoveAll(ped => ped.Id == id_pedido));
-            //_DB.Cadeteria.ListaCadetes.Find(cad => cad.Id == id_cadete).CargarPedido(OldPedido);
-            //_DB.SaveAllCadetes();
-            return View("MostrarPedidos");
+            var pedidoToEdit = _pedidoRepositorio.GetEntity(id_pedido);
+            var pedidoVM = _mapper.Map<EditPedidoVM>(pedidoToEdit);
+            pedidoVM.listaCadetes = _cadeteRepositorio.GetEntities();
+            pedidoVM.listaClientes = _clienteRepositorio.GetEntities();
+
+
+            return View(pedidoVM);
+        }
+
+        public IActionResult EditPedido(EditPedidoVM pedidoVM)
+        {
+            Pedido pedModificar = new Pedido
+            {
+                Id = pedidoVM.Id,
+                Observacion = pedidoVM.Observacion,
+                Estado = pedidoVM.Estado,
+            };
+            _pedidoRepositorio.EditEntity(pedModificar,pedidoVM.IdCadete,pedidoVM.IdCliente);
+            return Redirect("MostrarPedidos");
         }
     }
 }

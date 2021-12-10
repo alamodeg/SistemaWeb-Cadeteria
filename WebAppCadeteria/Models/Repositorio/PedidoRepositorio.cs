@@ -47,9 +47,32 @@ namespace Models.Repositorio
             throw new NotImplementedException();
         }
 
-        public void EditEntity(Pedido pedModificar)
+        public void EditEntity(Pedido pediModificado,int IdCadete,int IdCliente)
         {
-            throw new NotImplementedException();
+            string SQLiteQuery = @"UPDATE Pedidos 
+                                    SET pedidoObs = @observacion,clienteId = @idcliente,cadeteId = @idcadete
+                                    WHERE pedidoID = @pedidoID;";
+            try
+            {
+                using (var connection = new SQLiteConnection(_connectionString))
+                {
+                    using (SQLiteCommand command = new SQLiteCommand(SQLiteQuery, connection))
+                    {
+                        connection.Open();
+                        command.Parameters.AddWithValue("@id", pediModificado.Id);
+                        command.Parameters.AddWithValue("@observacion", pediModificado.Observacion);
+                        command.Parameters.AddWithValue("@cadeteId", IdCadete);
+                        command.Parameters.AddWithValue("@clienteId", IdCadete);
+                        command.ExecuteNonQuery();
+                        var A = pediModificado;
+                        connection.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                var error = ex.Message;
+            }
         }
 
         public List<Pedido> GetEntities()
@@ -83,10 +106,42 @@ namespace Models.Repositorio
             }
             return listaPedidos;
         }
-        
-        public Pedido GetEntity()
+
+        public Pedido GetEntity(int id)
         {
-            return null;
+            string SQLiteQuery = @"SELECT * FROM Pedidos 
+                                    INNER JOIN Clientes on Pedidos.clienteId = Clientes.clienteID
+                                    INNER JOIN Cadetes on Pedidos.cadeteId = Cadetes.cadeteID
+                                    where Pedidos.pedidoID = @id; ";
+            Pedido pedido = new();
+
+            try
+            {
+                using (var connection = new SQLiteConnection(_connectionString))
+                {
+                    using (SQLiteCommand command = new SQLiteCommand(SQLiteQuery, connection))
+                    {
+                        connection.Open();
+
+                        command.Parameters.AddWithValue("@id", id);
+                        var DataReader = command.ExecuteReader();
+
+                        DataReader.Read();
+                        Cliente cliente = new Cliente(DataReader["clienteNombre"].ToString(), DataReader["clienteDireccion"].ToString(), DataReader["clienteTelefono"].ToString());
+                        pedido = new Pedido(Convert.ToInt32(DataReader["pedidoID"]), DataReader["pedidoObs"].ToString(), cliente, (Estado)Convert.ToInt32(DataReader["pedidoEstado"]));
+                        //pedido.Estado = (Estado)Convert.ToInt32(DataReader["pedidoEstado"]);
+                        
+                        DataReader.Close();
+
+                        connection.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                var error = ex.Message;
+            }
+            return pedido;
         }
     }
 }

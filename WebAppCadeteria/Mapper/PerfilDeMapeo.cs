@@ -15,6 +15,7 @@ namespace WebAppCadeteria.Mapper
             CreateMap<Cadete, MostrarCadetesVM>().ReverseMap();
             CreateMap<Pedido, MostrarPedidosVM>().ReverseMap();
             CreateMap<Pedido, AddPedidoVM>().ReverseMap();
+            CreateMap<Pedido, EditPedidoVM>().ReverseMap();
         }
     }
 }

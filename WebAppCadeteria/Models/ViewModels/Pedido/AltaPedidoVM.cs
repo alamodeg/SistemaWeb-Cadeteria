@@ -22,7 +22,6 @@ namespace WebAppCadeteria.Models.ViewModels
         public int IdCliente { get; set; }
 
         public AddPedidoVM listas { get; set; }
-
-        
+               
     }
 }

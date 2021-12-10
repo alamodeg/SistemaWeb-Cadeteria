@@ -14,8 +14,9 @@ namespace Cadeteria.Model
         public Cliente Cliente { get; set; }
         public Estado Estado { get; set; }
 
-        public Pedido(string observacion, Cliente cliente, Estado estado)
+        public Pedido(int id, string observacion, Cliente cliente, Estado estado)
         {
+            this.Id = id;
             this.Observacion = observacion;
             this.Estado = estado;
             this.Cliente = cliente;

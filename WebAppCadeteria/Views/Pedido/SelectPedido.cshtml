@@ -1,0 +1,61 @@
+﻿@model WebAppCadeteria.Models.ViewModels.EditPedidoVM
+
+@{
+    ViewData["Title"] = "SelectPedido";
+}
+
+<h1>Editar Pedidos</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditPedido">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input hidden asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Observacion" class="control-label"></label>
+                <input asp-for="Observacion" class="form-control" />
+                <span asp-validation-for="Observacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="form-group">
+                    <h5>Cadete</h5>
+                    <select name="IdCadete" id="IdCadete" class="form-select">
+                        @foreach (var Cadete in Model.listaCadetes)
+                        {
+                            <option value="@Cadete.Id">@Cadete.Nombre</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <h5>Cliente</h5>
+                    <select name="IdCliente" id="IdCliente" class="form-select">
+                        @foreach (var Cliente in Model.listaClientes)
+                        {
+                            <option value="@Cliente.Id">@Cliente.Apellido</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Estado" class="control-label">Estado del pedido</label>
+                    <select asp-for="Estado">
+                        <option value="1">NoEntregado</option>
+                        <option value="2">Entregado</option>
+                        <option value="3">Encamino</option>
+                        <option value="4">Cancelado</option>
+                    </select>
+                    <span validation-for="Estado" class="text-danger"></span>
+                </div>
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
