@@ -49,6 +49,7 @@ namespace WebAppCadeteria.Controllers
             return View(cadeteToEdit);
         }
 
+        //llega un null por el id_cadete
         public IActionResult EditCadete(Guid id_cadete, string nombre, string apellido, string tel)
         {
             Cadete cadADevolver = _DB.Cadeteria.ListaCadetes.Find(cad => cad.Id == id_cadete);
