@@ -101,7 +101,8 @@ namespace Models.Repositorio
             List<Pedido> listaPedidos = new List<Pedido>();
             String SQLiteQuery = @"SELECT * FROM Pedidos 
                                         INNER JOIN Cadetes ON Cadetes.cadeteId = Pedidos.CadeteID
-                                        INNER JOIN Clientes ON Pedidos.clienteId = Clientes.clienteID";
+                                        INNER JOIN Clientes ON Pedidos.clienteId = Clientes.clienteID
+                                        WHERE Pedidos.esActivo = 1";
 
             using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
             {

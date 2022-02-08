@@ -32,6 +32,7 @@ namespace WebAppCadeteria.Controllers
         public IActionResult MostrarPedidos()
         {
             MostrarPedidosVM pedidosYcadetes = new MostrarPedidosVM(_cadeteRepositorio.GetEntities(), _pedidoRepositorio.GetEntities());
+            List<Pedido> asdasd = _pedidoRepositorio.GetEntities();
             return View(pedidosYcadetes);
         }
          
@@ -78,8 +79,7 @@ namespace WebAppCadeteria.Controllers
         public IActionResult DeletePedido(int id_pedido)
         {
             _pedidoRepositorio.DeleteEntity(id_pedido);
-            MostrarPedidosVM pedidosYcadetes = new MostrarPedidosVM(_cadeteRepositorio.GetEntities(), _pedidoRepositorio.GetEntities());
-            return View(pedidosYcadetes);
+            return RedirectToAction(nameof(MostrarPedidos));
         }
     }
 }
