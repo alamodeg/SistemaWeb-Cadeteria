@@ -45,10 +45,8 @@ namespace WebAppCadeteria.Controllers
             return View(model);
         }
 
-
         public IActionResult AddPedido(AltaPedidoVM model)
         {
-
             model.Pedido.Estado = Estado.NoEntregado;
             _pedidoRepositorio.AddEntity(model.Pedido,model.IdCadete,model.IdCliente);
             return Redirect("MostrarPedidos");
@@ -60,7 +58,6 @@ namespace WebAppCadeteria.Controllers
             var pedidoVM = _mapper.Map<EditPedidoVM>(pedidoToEdit);
             pedidoVM.listaCadetes = _cadeteRepositorio.GetEntities();
             pedidoVM.listaClientes = _clienteRepositorio.GetEntities();
-
 
             return View(pedidoVM);
         }
@@ -81,7 +78,8 @@ namespace WebAppCadeteria.Controllers
         public IActionResult DeletePedido(int id_pedido)
         {
             _pedidoRepositorio.DeleteEntity(id_pedido);
-            return Redirect("MostrarPedidos");
+            MostrarPedidosVM pedidosYcadetes = new MostrarPedidosVM(_cadeteRepositorio.GetEntities(), _pedidoRepositorio.GetEntities());
+            return View(pedidosYcadetes);
         }
     }
 }

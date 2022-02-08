@@ -22,7 +22,7 @@ namespace Models.Repositorio
             List<Cadete> listaCadetes = new();
             string SQLiteQuery = @"SELECT *,count(Pedidos.cadeteId) as numPedidos FROM Cadetes
                                     LEFT JOIN Pedidos ON Cadetes.cadeteID = Pedidos.cadeteId
-                                    WHERE esActivo = 1
+                                    WHERE  Cadetes.esActivo = 1
                                     GROUP BY Cadetes.cadeteID";
             try
             {
